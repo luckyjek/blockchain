@@ -1,0 +1,61 @@
+:root {
+    /* color */
+    --color-yellow: #fbbe28;
+    --color-blue: #3b88c3;
+    --color-pink: #fd7f84;
+}
+
+body {
+    height: 100vh;
+    background-color: var(--color-blue);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.perSonImg {
+    width: 200px;
+    height: 250px;
+    cursor: pointer;
+    transition: transform 300ms ease;
+}
+.btnPerson {
+    display: flex;
+    align-items: center;
+}
+.btnColorBtn {
+    display: flex;
+    align-items: center;
+}
+.perSonImg:hover,
+.btn:hover {
+    transform: scale(1.1);
+}
+
+.btn {
+    border-radius: 10px;
+    transition: transform 300ms ease;
+}
+.imgBtn {
+    background-color: transparent;
+}
+
+.person1 {
+    background-color: var(--color-pink);
+
+    margin-right: 80px;
+}
+.person2 {
+    background-color: var(--color-yellow);
+}
+.personInfo {
+    background-color: wheat;
+    width: 30%;
+    margin: 15px;
+}
+.countInfo {
+    background-color: wheat;
+    width: 30%;
+    margin: 15px;
+}

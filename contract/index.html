@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <!-- Bootstrap CSS -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous"
+        />
+        <title>Document</title>
+    </head>
+    <body></body>
+
+    <button onclick="block()">block보이기버튼</button>
+    <div id="showInfo"></div>
+
+    <button onclick="block2()">block보이기버튼2</button>
+    <div id="showInfo2"></div>
+    <hr />
+    <button onclick="increment()">increment버튼</button>
+    <div id="showInfo3"></div>
+
+    <button onclick="getCount()">getCount버튼</button>
+    <div id="showInfo4"></div>
+    <hr />
+
+    <input type="text" /><button onclick="deposit()">getCount버튼</button>
+    <div id="showInfo5"></div>
+
+    <button onclick="getBalance()">getCount버튼</button>
+    <div id="showInfo5"></div>
+
+    <hr />
+    <button onclick="setInstructor()">Instructor</button>
+
+    <script type="text/javascript" src="./lib/bignumber.min.js"></script>
+    <script type="text/javascript" src="./lib/web3.js"></script>
+
+    <script type="text/javascript">
+        if (typeof web3 !== "undefined") {
+            web3 = new Web3(web3.currentProvider);
+        } else {
+            // set the provider you want from Web3.providers
+            web3 = new Web3(
+                new Web3.providers.HttpProvider("http://localhost:8545")
+            );
+        }
+
+        if (web3.isConnected()) {
+            console.log("connected");
+        } else {
+            console.log("not connected");
+        }
+
+        web3.eth.defaultAccount = web3.eth.accounts[0];
+
+        let abi = [
+            {
+                inputs: [],
+                name: "getBlockNumber",
+                outputs: [
+                    {
+                        internalType: "uint256",
+                        name: "",
+                        type: "uint256",
+                    },
+                ],
+                stateMutability: "view",
+                type: "function",
+            },
+        ];
+
+        let contractAddress = "0xD33Ff48282dF5088aFA14A23ca7A0280431fd143";
+
+        let smartContract = web3.eth.contract(abi).at(contractAddress);
+
+        console.log(smartContract);
+
+        function block() {
+            smartContract.getBlockNumber.call(function (error, result) {
+                console.log(result.toNumber());
+                document.getElementById("showInfo").innerHTML =
+                    "<div> number:" + result.toNumber();
+                ("</div>");
+            });
+        }
+
+        let abi2 = [
+            {
+                inputs: [],
+                name: "getString",
+                outputs: [
+                    {
+                        internalType: "string",
+                        name: "",
+                        type: "string",
+                    },
+                ],
+                stateMutability: "view",
+                type: "function",
+            },
+        ];
+
+        let contractAddress2 = "0x1837aec1C0a4f44D838A53DF3338456504a7B37A";
+
+        let smartContract2 = web3.eth.contract(abi2).at(contractAddress2);
+
+        console.log(smartContract2);
+
+        function block2() {
+            smartContract2.getString.call(function (error, result) {
+                console.log(result);
+                document.getElementById("showInfo2").innerHTML =
+                    "<div> string:" + result;
+                ("</div>");
+            });
+        }
+
+        let abi3 = [
+            {
+                inputs: [
+                    {
+                        internalType: "uint256",
+                        name: "_count",
+                        type: "uint256",
+                    },
+                ],
+                stateMutability: "nonpayable",
+                type: "constructor",
+            },
+            {
+                inputs: [],
+                name: "getCount",
+                outputs: [
+                    {
+                        internalType: "uint256",
+                        name: "",
+                        type: "uint256",
+                    },
+                ],
+                stateMutability: "view",
+                type: "function",
+            },
+            {
+                inputs: [],
+                name: "increment",
+                outputs: [],
+                stateMutability: "nonpayable",
+                type: "function",
+            },
+        ];
+
+        let contractAddress3 = "0x391eA8f707Ef9B6F9c0b0185C568bbaEE95c623A";
+
+        let smartContract3 = web3.eth.contract(abi3).at(contractAddress3);
+
+        console.log(smartContract3);
+
+        //increment 블록체인 상태값을 변환시키는애!
+        function increment() {
+            smartContract3.increment.sendTransaction(function (error, result) {
+                // getCount()
+            });
+        }
+
+        //getCount 읽어올 필요가있는애!
+        function getCount() {
+            smartContract3.getCount.call(function (error, result) {
+                console.log(result);
+                document.getElementById("showInfo4").innerHTML =
+                    "<div> 숫자:" + result;
+                ("</div>");
+            });
+        }
+
+        let abi4 = [
+            {
+                inputs: [
+                    {
+                        internalType: "uint256",
+                        name: "amount",
+                        type: "uint256",
+                    },
+                ],
+                name: "deposit",
+                outputs: [],
+                stateMutability: "nonpayable",
+                type: "function",
+            },
+            {
+                inputs: [],
+                name: "getBalance",
+                outputs: [
+                    {
+                        internalType: "uint256",
+                        name: "",
+                        type: "uint256",
+                    },
+                ],
+                stateMutability: "view",
+                type: "function",
+            },
+        ];
+
+        let contractAddress4 = "0xF1f449cc676Cd39A8a9B41c9693203Af30a5F6ae";
+
+        let smartContract4 = web3.eth.contract(abi4).at(contractAddress4);
+
+        console.log(smartContract4);
+
+        function deposit() {
+            smartContract3.deposit.sendTransaction(function (error, result) {
+                // getCount()
+            });
+        }
+
+        function getBalance() {
+            smartContract4.getBalance.call(function (error, result) {
+                console.log(result);
+                document.getElementById("showInfo5").innerHTML =
+                    "<div> 숫자:" + result;
+                ("</div>");
+            });
+        }
+
+        let abi5 = [
+            {
+                anonymous: false,
+                inputs: [
+                    {
+                        indexed: false,
+                        internalType: "string",
+                        name: "name",
+                        type: "string",
+                    },
+                    {
+                        indexed: false,
+                        internalType: "uint256",
+                        name: "age",
+                        type: "uint256",
+                    },
+                ],
+                name: "Instructor",
+                type: "event",
+            },
+            {
+                inputs: [],
+                name: "getInstructor",
+                outputs: [
+                    {
+                        internalType: "string",
+                        name: "",
+                        type: "string",
+                    },
+                    {
+                        internalType: "uint256",
+                        name: "",
+                        type: "uint256",
+                    },
+                ],
+                stateMutability: "view",
+                type: "function",
+            },
+            {
+                inputs: [
+                    {
+                        internalType: "string",
+                        name: "_fName",
+                        type: "string",
+                    },
+                    {
+                        internalType: "uint256",
+                        name: "_age",
+                        type: "uint256",
+                    },
+                ],
+                name: "setInstructor",
+                outputs: [],
+                stateMutability: "nonpayable",
+                type: "function",
+            },
+        ];
+        let contractAddress5 = "0x061C8D55cCDCae4Ec26ac3EB14E7E9698258f00A";
+        let contract1 = web3.eth.contract(abi5).at(contractAddress5);
+
+        let instructorEvent = contract1.Instructor();
+
+        instructorEvent.watch(function (error, result) {
+            console.log(result.args);
+        });
+
+        function setInstructor() {
+            contract1.setInstructor.sendTransaction(
+                "hyun",
+                11,
+                { from: web3.eth.accounts[0] },
+                function (err, hash) {}
+            );
+        }
+    </script>
+</html>
