@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- web3.js를 script에 추가하였다. -->
+        <script type="text/javascript" src="./lib/bignumber.min.js"></script>
+        <script type="text/javascript" src="./lib/web3.js"></script>
+
+        <title>Document</title>
+    </head>
+    <body>
+        from : <input type="text" id="from" /> to :
+        <input type="text" id="id" /> amount :
+        <input type="text" id="amount" />
+        <button onclick="send()">send</button>
+        <br />
+        <br />
+
+        <input type="text" placeholder="tx hash" id="txhash" />
+        <button onclick="viewTx()">트랜잭션 조회</button>
+        <div style="background-color: aquamarine" id="showTxInfo">
+            여기에 tx hash 조회될 부분
+        </div>
+
+        <!-- js에서 그려지는 값을 가져온다. -->
+        <table id="dataTable"></table>
+        <!-- document.write("counts:" + counts);
+        <div>sdfjaslfdkjsdl</div> -->
+        <!-- <button input="button" onclick="selectCount()">나와라</button> -->
+
+        <!-- script시작  -->
+        <script type="text/javascript">
+            // web3가 잘 연동됐는지 확인하는 if문
+            if (typeof web3 !== "undefined") {
+                web3 = new Web3(web3.currentProvider);
+            } else {
+                // set the provider you want from Web3.providers
+                web3 = new Web3(
+                    new Web3.providers.HttpProvider("http://localhost:8545")
+                );
+            }
+
+            if (web3.isConnected()) {
+                console.log("connected");
+            } else {
+                console.log("not connected");
+            }
+
+            let accounts = web3.eth.accounts;
+            console.log(accounts);
+
+            // let balance = web3.eth.getBalance(accounts[0]);
+            // console.log(web3.fromWei(balance).toNumber() + "ETH"); //타입을 바꿔준거야!
+            // console.log(balance);
+
+            // let accounts0 = accounts[0];
+            // console.log(accounts0);
+            // document.write(accounts0);
+            // let accounts1 = accounts[1];
+            // console.log(accounts1);
+
+            // let counts;
+
+            function getAccounts() {
+                let list = "";
+                // let balance;
+
+                for (i = 0; i < accounts.length; i++) {
+                    let balance =
+                        web3
+                            .fromWei(web3.eth.getBalance(accounts[i]))
+                            .toNumber() + "ETH";
+
+                    list +=
+                        '<tr><td id="test1">' +
+                        accounts[i] +
+                        '</td> <td id="test2">' +
+                        balance +
+                        "</td></tr>";
+                }
+                document.getElementById("dataTable").innerHTML = list;
+            }
+            // web3.fromWei(web3.eth.getBalance(accounts[i])).toNumber();
+
+            // let accounts0 = accounts[0];
+            // console.log(accounts0);
+            // document.write(accounts0);
+            // let accounts1 = accounts[1];
+            // console.log(accounts1);
+
+            function send() {
+                console.log("나들어왔어요");
+
+                // console.log(_from);
+                // 저기있는 사용자가 입력하는 값을 읽어와야되니까!
+                //id를 사용해서 읽어온다!
+                let _from = document.getElementById("from").value;
+                console.log(_from);
+                let _to = document.getElementById("id").value;
+                console.log(_to);
+                let _amount = document.getElementById("amount").value;
+                console.log(_amount);
+                //web3나오면 다 블록체인이라고 생각하기
+                //블록체인에 전달해야되니까!
+                let txhash = web3.eth.sendTransaction({
+                    from: _from,
+                    to: _to,
+                    value: web3.toWei(_amount, "ether"),
+                });
+                console.log(txhash);
+                document.getElementById("txhash").value = txhash;
+                //input값에는 html을 넣는것이아니기때문에,
+                //innerHTML이 아닌,
+                //value을 넣는것이다!
+
+                // let list = "";
+                // for (i = 0; i < accounts.length; i++) {
+                //     let balance =
+                //         web3
+                //             .fromWei(web3.eth.getBalance(accounts[i]))
+                //             .toNumber() + "ETH";
+
+                //     list +=
+                //         '<tr><td id="test1">' +
+                //         accounts[i] +
+                //         '</td> <td id="test2">' +
+                //         balance +
+                //         "</td></tr>";
+                // }
+                // document.getElementById("dataTable").innerHTML = list;
+
+                //새로고침하는코드
+                // location.reload();
+                getAccounts();
+            }
+
+            function viewTx() {
+                //tx조회를해야돼!
+                // let
+                let _txhash = document.getElementById("txhash").value;
+                console.log("_txhash", _txhash);
+                //이건 무조건 해야돼! 여기에는 리턴값이없다!
+                web3.eth.getTransaction(_txhash, function (error, tx) {
+                    console.log(tx); // function으로 우리가 함수를 만들수 있게 해주었다.
+                    //그다음에, html요소를 tx.hash 이런거를 html로 담아준다!
+                    document.getElementById("showTxInfo").innerHTML =
+                        "<tr><td> nonce:" +
+                        tx.nonce +
+                        "<td>" +
+                        "<br/><td>blockHash:" +
+                        tx.blockHash +
+                        "</tr>";
+                });
+
+                // document.getElementById("showTxInfo").innerHTML = result;
+            }
+            // console.log(counsts);
+
+            // function selectCount() {
+            //     let length = accounts.length;
+            //     console.log(length);
+
+            //     for (i = 0; i < accounts.length[i]; i++) {
+            //         counsts = accounts;
+            //     }
+            //     console.log(counsts);
+
+            // for (i = 0; i < accounts[i].length; i++) {
+            //     counsts = accounts[i];
+            // }
+            // console.log(counsts);
+
+            // return {
+            //     counsts: counsts,
+            // };
+
+            // let accounts0 = accounts[0];
+            // document.write(accounts0);
+            // let accounts1 = accounts[1];
+            // document.write(accounts1);
+            // }
+            getAccounts();
+            //<tag>저기에 무엇(내가가지고있는값) 대입하겠다!
+
+            //vlaue를 읽어와서 트랜잭션을 생성하고 샌드한다.
+        </script>
+    </body>
+</html>

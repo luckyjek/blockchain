@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <!-- Bootstrap CSS -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous"
+        />
+
+        <title>Document</title>
+    </head>
+    <body>
+        <table
+            id="dataTable"
+            class="table table-dark table-striped"
+            style="margin: 20px 0 50px 50px; width: 50%"
+        ></table>
+        <!-- 
+    <div style="margin: 50px">
+        <button id="create_btn" onclick="createNewAccount()">계정생성</button>
+        <input type="password" id="pw" placeholder="비밀번호" />
+      </div>
+  
+    <div style="margin: 50px">
+        account: <input type="text" id="account" placeholder="계정" />
+        password: <input type="password" id="password" placeholder="비밀번호" />
+        <button id="unlock_btn" onclick="unlockAccount()">Unlock Account</button>
+    </div> -->
+
+        <div style="margin: 50px">
+            from: <input type="text" id="fromId" placeholder="보내는 사람" />
+            to:
+            <input type="text" id="toId" placeholder="받는 사람" /> value:<input
+                type="number"
+                id="sendValue"
+                placeholder="이더 수량(eth)"
+            />
+            <button id="send_btn" onclick="sendAction()">send</button>
+        </div>
+
+        <div style="margin: 50px">
+            <input type="text" id="tx_input" placeholder="tx hash" />
+            <button id="getTx_btn">트랜잭션 조회</button>
+        </div>
+    </body>
+
+    <script type="text/javascript" src="./lib/bignumber.min.js"></script>
+    <script type="text/javascript" src="./lib/web3.js"></script>
+
+    <script type="text/javascript">
+        if (typeof web3 !== "undefined") {
+            web3 = new Web3(web3.currentProvider);
+        } else {
+            // set the provider you want from Web3.providers
+            web3 = new Web3(
+                new Web3.providers.HttpProvider("http://localhost:8545")
+            );
+        }
+
+        if (web3.isConnected()) {
+            console.log("connected");
+        } else {
+            console.log("not connected");
+        }
+
+        web3.eth.filter("latest", function (err, blockHash) {
+            console.log(blockHash);
+        });
+
+        function getAccounts() {
+            let accounts = web3.eth.accounts;
+
+            console.log(accounts);
+            let list = "";
+            let balance;
+
+            for (var i = 0; i < accounts.length; i++) {
+                balance =
+                    web3.fromWei(web3.eth.getBalance(accounts[i])) + "ETH";
+                list +=
+                    "<tr><td>" +
+                    accounts[i] +
+                    "</td> <td>" +
+                    balance +
+                    "</td> </tr>";
+            }
+
+            document.getElementById("dataTable").innerHTML = list;
+        }
+
+        function sendAction() {
+            let fromValue = document.getElementById("fromId").value;
+            let toValue = document.getElementById("toId").value;
+            let amountValue = document.getElementById("sendValue").value;
+
+            console.log(amountValue);
+
+            let txHash = web3.eth.sendTransaction({
+                from: fromValue,
+                to: toValue,
+                value: web3.toWei(amountValue, "ether"),
+            });
+
+            document.getElementById("tx_input").value = txHash;
+
+            getAccounts();
+        }
+
+        function createNewAccount() {
+            let pw = document.getElementById("pw").value;
+            web3.personal.newAccount(pw);
+            getAccounts();
+        }
+
+        function unlockAccount() {
+            let account = document.getElementById("account").value;
+            let password = document.getElementById("password").value;
+
+            web3.personal.unlockAccount(account, password);
+        }
+
+        function getBlock(blockNum) {
+            web3.eth.getBlock(blockNum, function (error, block) {
+                console.log(block);
+            });
+        }
+
+        function getTransaction() {
+            let txHash = document.getElementById("tx_input").value;
+            web3.eth.getTransaction(txHash, function (err, tx) {
+                console.log(tx);
+            });
+        }
+
+        getAccounts();
+
+        document
+            .getElementById("getTx_btn")
+            .addEventListener("click", getTransaction);
+    </script>
+</html>

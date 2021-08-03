@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <title>Document</title>
+
+        <style type="text/css">
+            #amount {
+                width: 100px;
+            }
+
+            .send {
+                display: inline;
+            }
+
+            table {
+                width: 50%;
+                border-top: 1px solid #444444;
+                border-collapse: collapse;
+            }
+            th,
+            td {
+                border-bottom: 1px solid #444444;
+                padding: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <table>
+            <thead>
+                <tr>
+                    <th>Address</th>
+
+                    <th>Balance</th>
+                </tr>
+            </thead>
+
+            <tbody id="dataTable"></tbody>
+        </table>
+
+        <div class="send">
+            <label for="fromAddress">from:</label>
+
+            <input type="text" id="fromAddress" />
+
+            <label for="toAddress">to:</label>
+
+            <input type="text" id="toAddress" />
+
+            <label for="toAddress">amount: </label>
+
+            <input type="text" id="amount" placeholder="단위: ether" />
+
+            <button id="sendButton" onclick="send()">send</button>
+        </div>
+
+        <div>
+            <label for="password">password</label>
+
+            <input type="text" id="password" />
+
+            <button id="createAccount" onclick="createNewAccount()">
+                createNewAccount
+            </button>
+        </div>
+
+        <script type="text/javascript" src="./lib/bignumber.min.js"></script>
+
+        <script type="text/javascript" src="./lib/web3.js"></script>
+
+        <script type="text/javascript">
+            if (typeof web3 !== "undefined") {
+                web3 = new Web3(web3.currentProvider);
+            } else {
+                // set the provider you want from Web3.providers*
+
+                web3 = new Web3(
+                    new Web3.providers.HttpProvider("http://localhost:8545")
+                );
+            }
+
+            if (web3.isConnected()) {
+                console.log("connected");
+            } else {
+                console.log("not connected");
+            }
+
+            let accounts = web3.eth.accounts;
+
+            console.log(accounts[0]);
+
+            function getAccounts() {
+                let list = "";
+
+                let balance;
+
+                for (var i = 0; i < accounts.length; i++) {
+                    balance =
+                        web3
+                            .fromWei(web3.eth.getBalance(accounts[i]))
+                            .toNumber() + "ETH";
+
+                    list +=
+                        "<tr><td>" +
+                        accounts[i] +
+                        "</td> <td>" +
+                        balance +
+                        "</td> </tr>";
+                }
+
+                document.getElementById("dataTable").innerHTML = list;
+            }
+
+            console.log(accounts);
+
+            console.log(web3.fromWei(balance).toNumber() + "ETH");
+
+            function send() {
+                let _from = document.getElementById("fromAddress").value;
+
+                let _fromRaw = $.trim(_from);
+
+                let _to = document.getElementById("toAddress").value;
+
+                let _toRaw = $.trim(_to);
+
+                let _amount = document.getElementById("amount").value;
+
+                web3.eth.sendTransaction({
+                    from: _fromRaw,
+
+                    to: _toRaw,
+
+                    value: web3.toWei(_amount, "ether"),
+                });
+            }
+
+            getAccounts();
+
+            function createNewAccount() {
+                let pwd = document.getElementById("password").value;
+
+                web3.personal.newAccount(pwd);
+            }
+        </script>
+    </body>
+</html>
