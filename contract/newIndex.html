@@ -12,7 +12,7 @@
             integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
             crossorigin="anonymous"
         />
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="style.css" />
         <title>Document</title>
     </head>
     <body>
@@ -23,16 +23,33 @@
 
         <!-- person -->
         <div class="btnPerson">
-        <button class="btn "><img src="./src/an.png" alt="person1" class="imgBtn perSonImg" /></button>
-        <button class="btn "></button><img src="./src/by.png" alt="person2" class="imgBtn perSonImg" /></button>
-      </div>
-      <!-- count -->
-      <!-- buttons -->
-      <div class="btnColorBtn">
-        <button class="btn colorBtn person1" onclick="person1()">purchasePerson1</button>
-        <button class="btn colorBtn person2" onclick="person2()">purchasePerson2</button>
-      </div>
-      <div class="personInfo" id="person1" onclick="person()">사용자정보 :</div>
+            <button class="btn" onclick="personAnna()">
+                <img
+                    src="./src/an.png"
+                    alt="person1"
+                    class="imgBtn perSonImg"
+                />
+            </button>
+            <button class="btn" onclick="personBecky()">
+                <img
+                    src="./src/by.png"
+                    alt="person2"
+                    class="imgBtn perSonImg"
+                />
+            </button>
+        </div>
+        <!-- count -->
+        <!-- buttons -->
+        <div class="btnColorBtn">
+            <button class="btn colorBtn person1" onclick="person1()">
+                purchasePerson1
+            </button>
+            <button class="btn colorBtn person2" onclick="person2()">
+                purchasePerson2
+            </button>
+        </div>
+        <div class="personInfo" id="personanna"></div>
+        <div class="personInfo" id="personbecky"></div>
         <div class="countInfo" id="count" onclick="getCount()">판매총합:</div>
     </body>
 
@@ -125,25 +142,29 @@
             },
         ];
 
-        // 구매자를 읽어오는 함수  -> 이벤트
-        // 판매자를한 총 갯수를 읽어오는 함수  -> 이벤트
-
         //anna랑 becky가있어요. string값으로 받아온다.
-        //
 
-        let contractAddress = "0xDA0bab807633f07f013f94DD0E6A4F96F8742B53";
+        let contractAddress = "0xCC9abA457B90d88E1e4bd6FBf4C05c9A8c20A185";
         let smartContract = web3.eth.contract(abi).at(contractAddress);
         console.log(smartContract);
 
-        function person() {
-            console.log("person들어옴");
+        function personAnna() {
+            console.log("personanna들어옴");
             smartContract.getPerson1.call(function (error, result) {
                 console.log(result);
-                document.getElementById("person1").innerHTML =
-                    "<div> userName:" + result + "</div>";
+                document.getElementById("personanna").innerHTML =
+                    "<div>사용자정보 :" + result + "</div>";
             });
         }
 
+        function personBecky() {
+            console.log("personbecky들어옴");
+            smartContract.getPerson2.call(function (error, result) {
+                console.log(result);
+                document.getElementById("personbecky").innerHTML =
+                    "<div>사용자정보 :" + result + "</div>";
+            });
+        }
         function getCount() {
             console.log("getCount들어옴");
             smartContract.getCount.call(function (error, result) {
@@ -168,10 +189,10 @@
                 result
             ) {
                 console.log(result);
-                // getCount()
+                getCount();
             });
         }
-        person();
+        // person();
         getCount();
     </script>
 </html>
