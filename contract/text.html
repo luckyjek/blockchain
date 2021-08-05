@@ -68,10 +68,9 @@
                 // let balance;
 
                 for (i = 0; i < accounts.length; i++) {
-                    let balance =
-                        web3
-                            .fromWei(web3.eth.getBalance(accounts[i]))
-                            .toNumber() + "ETH";
+                    let balance = web3
+                        .fromWei(web3.eth.getBalance(accounts[i]))
+                        .toNumber();
 
                     list +=
                         '<tr><td id="test1">' +
