@@ -245,12 +245,9 @@
         // }
         function getCount() {
             console.log("I'm in contract fild", contract);
-            contract.methods
-                .getCount()
-                .call()
-                .then(function (result) {
-                    document.getElementById("count").innerText = result;
-                });
+            contract.methods.getCount.call().then(function (result) {
+                document.getElementById("count").innerText = result;
+            });
         }
 
         // function person1() {
