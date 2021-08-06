@@ -14,13 +14,19 @@
         />
         <link rel="stylesheet" href="style.css" />
         <title>Document</title>
+        <script src="./lib/web3.min.js"></script>
     </head>
     <body>
         <!-- 6.온라인 중고 거래 플랫폼 https://www.luniverse.io/2021/01/25/ten-blockchain-usecases/?lang=ko-->
 
         <!-- 판매자 / 구매자 -->
         <!--  거래 내용이 블록체인에 기록 -->
-
+        <button onclick="init()" style="margin-top: 20px">
+            Connect Wallet
+        </button>
+        <div id="account"></div>
+        <button onclick="getContract()">Get Contract Instance</button>
+        <div id="contract"></div>
         <!-- person -->
         <div class="btnPerson">
             <button class="btn" onclick="personAnna()">
@@ -50,149 +56,239 @@
         </div>
         <div class="personInfo" id="personanna"></div>
         <div class="personInfo" id="personbecky"></div>
-        <div class="countInfo" id="count" onclick="getCount()">판매총합:</div>
+        <div>
+            판매총합 :
+            <div class="countInfo" id="count" onclick="getCount()"></div>
+        </div>
     </body>
 
-    <script type="text/javascript" src="./lib/bignumber.min.js"></script>
-    <script type="text/javascript" src="./lib/web3.js"></script>
+    <!-- <script type="text/javascript" src="./lib/bignumber.min.js"></script>
+    <script type="text/javascript" src="./lib/web3.js"></script> -->
 
     <script type="text/javascript">
-        if (typeof web3 !== "undefined") {
-            web3 = new Web3(web3.currentProvider);
-        } else {
-            // set the provider you want from Web3.providers
-            web3 = new Web3(
-                new Web3.providers.HttpProvider("http://52.79.175.41:8545")
+        // if (typeof web3 !== "undefined") {
+        //     web3 = new Web3(web3.currentProvider);
+        // } else {
+        //     // set the provider you want from Web3.providers
+        //     web3 = new Web3(
+        //         new Web3.providers.HttpProvider("http://52.79.175.41:8545")
+        //     );
+        // }
+
+        // if (web3.isConnected()) {
+        //     console.log("connected");
+        // } else {
+        //     console.log("not connected");
+        // }
+
+        // //계정의 0번째 배열의 이더를 기본으로해준다.
+        // web3.eth.defaultAccount = web3.eth.accounts[0];
+
+        let provider;
+        let web3;
+        let account;
+        let contract;
+
+        async function init() {
+            if (window.ethereum) {
+                web3 = new Web3(window.ethereum);
+                try {
+                    // Request account access if needed
+                    await window.ethereum.enable();
+                    // Acccounts now exposed
+                    web3.eth.getAccounts().then(function (accounts) {
+                        account = accounts[0];
+                        document.getElementById("account").innerText = account;
+                    });
+                } catch (error) {}
+            }
+            // Legacy dapp browsers...
+            else if (window.web3) {
+                // Use Mist/MetaMask's provider.
+                web3 = window.web3;
+                console.log("Injected web3 detected.");
+            }
+        }
+        function getContract() {
+            let abi = [
+                {
+                    inputs: [
+                        {
+                            internalType: "uint256",
+                            name: "_sellcount",
+                            type: "uint256",
+                        },
+                    ],
+                    stateMutability: "nonpayable",
+                    type: "constructor",
+                },
+                {
+                    inputs: [],
+                    name: "getCount",
+                    outputs: [
+                        {
+                            internalType: "uint256",
+                            name: "",
+                            type: "uint256",
+                        },
+                    ],
+                    stateMutability: "view",
+                    type: "function",
+                },
+                {
+                    inputs: [],
+                    name: "getPerson1",
+                    outputs: [
+                        {
+                            internalType: "string",
+                            name: "",
+                            type: "string",
+                        },
+                    ],
+                    stateMutability: "view",
+                    type: "function",
+                },
+                {
+                    inputs: [],
+                    name: "getPerson2",
+                    outputs: [
+                        {
+                            internalType: "string",
+                            name: "",
+                            type: "string",
+                        },
+                    ],
+                    stateMutability: "view",
+                    type: "function",
+                },
+                {
+                    inputs: [],
+                    name: "purchasePerson1",
+                    outputs: [],
+                    stateMutability: "nonpayable",
+                    type: "function",
+                },
+                {
+                    inputs: [],
+                    name: "purchasePerson2",
+                    outputs: [],
+                    stateMutability: "nonpayable",
+                    type: "function",
+                },
+            ];
+            contract = new web3.eth.Contract(
+                abi,
+                "0x4533d5e15F77941ad5418c5531c01d4f01dCFf11"
             );
+            document.getElementById("contract").innerText = contract._address;
+            console.log(contract);
+
+            // // listen event
+            // contract.events.SetName({}, function (error, event) {
+            //     console.log(event);
+            //     document.getElementById("eventResult").innerText =
+            //         event.returnValues.name + ", " + event.returnValues.sender;
+            // });
+            // document.getElementById("eventResult").innerText = "Listening...";
+
+            console.log("end getContract");
+            getCount();
         }
-
-        if (web3.isConnected()) {
-            console.log("connected");
-        } else {
-            console.log("not connected");
-        }
-
-        //계정의 0번째 배열의 이더를 기본으로해준다.
-        web3.eth.defaultAccount = web3.eth.accounts[0];
-
-        let abi = [
-            {
-                inputs: [
-                    {
-                        internalType: "uint256",
-                        name: "_sellcount",
-                        type: "uint256",
-                    },
-                ],
-                stateMutability: "nonpayable",
-                type: "constructor",
-            },
-            {
-                inputs: [],
-                name: "getCount",
-                outputs: [
-                    {
-                        internalType: "uint256",
-                        name: "",
-                        type: "uint256",
-                    },
-                ],
-                stateMutability: "view",
-                type: "function",
-            },
-            {
-                inputs: [],
-                name: "getPerson1",
-                outputs: [
-                    {
-                        internalType: "string",
-                        name: "",
-                        type: "string",
-                    },
-                ],
-                stateMutability: "view",
-                type: "function",
-            },
-            {
-                inputs: [],
-                name: "getPerson2",
-                outputs: [
-                    {
-                        internalType: "string",
-                        name: "",
-                        type: "string",
-                    },
-                ],
-                stateMutability: "view",
-                type: "function",
-            },
-            {
-                inputs: [],
-                name: "purchasePerson1",
-                outputs: [],
-                stateMutability: "nonpayable",
-                type: "function",
-            },
-            {
-                inputs: [],
-                name: "purchasePerson2",
-                outputs: [],
-                stateMutability: "nonpayable",
-                type: "function",
-            },
-        ];
-
         //anna랑 becky가있어요. string값으로 받아온다.
 
-        let contractAddress = "0xCC9abA457B90d88E1e4bd6FBf4C05c9A8c20A185";
-        let smartContract = web3.eth.contract(abi).at(contractAddress);
-        console.log(smartContract);
+        // let contractAddress = "0x388aBE3f960dD9614e3465315Ba2eC88B0877E2A";
+        // let smartContract = web3.eth.contract(abi).at(contractAddress);
+        // console.log(smartContract);
 
+        // function personAnna() {
+        //     console.log("personanna들어옴");
+        //     contract.getPerson1.call(function (error, result) {
+        //         console.log(result);
+        //         document.getElementById("personanna").innerHTML =
+        //             "<div>사용자정보 :" + result + "</div>";
+        //     });
+        // }
         function personAnna() {
-            console.log("personanna들어옴");
-            smartContract.getPerson1.call(function (error, result) {
-                console.log(result);
-                document.getElementById("personanna").innerHTML =
-                    "<div>사용자정보 :" + result + "</div>";
-            });
+            console.log("I'm in contract fild", contract);
+            contract.methods
+                .getPerson1()
+                .call()
+                .then(function (result) {
+                    document.getElementById("personanna").innerText = result;
+                });
+        }
+        // function personBecky() {
+        //     console.log("personbecky들어옴");
+        //     contract.getPerson2.call(function (error, result) {
+        //         console.log(result);
+        //         document.getElementById("personbecky").innerHTML =
+        //             "<div>사용자정보 :" + result + "</div>";
+        //     });
+        // }
+        function personBecky() {
+            console.log("I'm in contract fild", contract);
+            contract.methods
+                .getPerson2()
+                .call()
+                .then(function (result) {
+                    document.getElementById("personbecky").innerText = result;
+                });
         }
 
-        function personBecky() {
-            console.log("personbecky들어옴");
-            smartContract.getPerson2.call(function (error, result) {
-                console.log(result);
-                document.getElementById("personbecky").innerHTML =
-                    "<div>사용자정보 :" + result + "</div>";
-            });
-        }
+        // function getCount() {
+        //     console.log("getCount들어옴");
+        //     contract.getCount.call(function (error, result) {
+        //         console.log("찍혀라", result);
+        //         document.getElementById("count").innerHTML =
+        //             "<div> 총판매수:" + result + "</div>";
+        //     });
+        // }
         function getCount() {
-            console.log("getCount들어옴");
-            smartContract.getCount.call(function (error, result) {
-                console.log("찍혀라", result);
-                document.getElementById("count").innerHTML =
-                    "<div> 총판매수:" + result + "</div>";
-            });
+            console.log("I'm in contract fild", contract);
+            contract.methods
+                .getCount()
+                .call()
+                .then(function (result) {
+                    document.getElementById("count").innerText = result;
+                });
         }
+
+        // function person1() {
+        //     contract.purchasePerson1.sendTransaction(function (error, result) {
+        //         console.log(result);
+        //         // getCount()
+        //         getCount();
+        //     });
+        // }
+
         function person1() {
-            smartContract.purchasePerson1.sendTransaction(function (
-                error,
-                result
-            ) {
-                console.log(result);
-                // getCount()
-                getCount();
-            });
+            contract.methods
+                .purchasePerson1()
+                .send({ from: account })
+                .then(function (receipt) {
+                    // receipt can also be a new contract instance, when coming from a "contract.deploy({...}).send()"
+                    getCount();
+                });
         }
+
+        // function person2() {
+        //     contract.purchasePerson2.sendTransaction(function (error, result) {
+        //         console.log(result);
+        //         getCount();
+        //     });
+        // }
+
         function person2() {
-            smartContract.purchasePerson2.sendTransaction(function (
-                error,
-                result
-            ) {
-                console.log(result);
-                getCount();
-            });
+            contract.methods
+                .purchasePerson2()
+                .send({ from: account })
+                .then(function (receipt) {
+                    // receipt can also be a new contract instance, when coming from a "contract.deploy({...}).send()"
+                    getCount();
+                });
         }
+
         // person();
-        getCount();
+        // getCount();
     </script>
 </html>

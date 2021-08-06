@@ -21,13 +21,22 @@
 
     <body>
         <!-- Note -->
-        <div style="background: width; padding: 5px">
+        <div class="imgLoge">
+            <div style="background: width; padding: 5px">
+                <img
+                    src="./img/logo-ether.jpg"
+                    alt=""
+                    style="width: 200px; height: 300; margin: 20px"
+                />
+                <!-- <h4 style="text-align: center">Home</h4> -->
+            </div>
+
             <img
-                src="./img/logo-ether.jpg"
+                src="http://clipart-library.com/images/5iRrxkaRT.gif"
                 alt=""
-                style="width: 200px; height: 300; margin: 20px"
+                width="200px"
+                height="100px"
             />
-            <!-- <h4 style="text-align: center">Home</h4> -->
         </div>
 
         <!-- Header -->
@@ -91,7 +100,6 @@
                 <button onclick="send()">send</button> 
                 <br />
                 <br />-->
-
                 <div
                     style="background-color: aquamarine; text-align: center"
                     id="showInfoValue"
@@ -158,11 +166,72 @@
             console.log(isHex(_input));
             console.log("나 isHex로 들어옴", "true");
 
-            if (_input.length == 1) {
+            var a = "12345678";
+            var abc = a.substring(0, 2);
+            console.log("abc", abc);
+
+            let subStr = _input.substr(0, 2);
+            console.log("inputsubstring", subStr);
+
+            // console.log("type확인", typeof _input);
+
+            //"0x"
+            if (subStr == "0x") {
+                if (_input.length == 42) {
+                    //가져오는getBalance()
+                    console.log("42맞니?", _input.length);
+                    //web3가서 input값을 읽어오는거
+                    // var output = web3.eth.getBalance(_input);
+                    // web3.eth.toWei(output, "ether");
+                    // console.log("output.toNumber()", output.toNumber());
+                    console.log(_input);
+
+                    document.getElementById("showInfoValue").innerHTML =
+                        "Account : " +
+                        _input +
+                        "<p>Balance :" +
+                        web3.fromWei(web3.eth.getBalance(_input)).toNumber() +
+                        "ETH</p>";
+                } else if (_input.length == 66) {
+                    console.log("42맞니?", _input.length);
+                    console.log("transaction맞니?", _input);
+                    // getTx()
+                    //우선 트랜잭션정보가 하나가있어야된다!그래서 이전에
+                    //만들어두었던 곳에서 트랜잭션을 하나 발생시켰다!
+                    //1 , 0x60066a8d3bde93f19fe02e6c8a2b18479042bae2452d123e41c7ebd47aeebeeb
+                    //2 , 0xc8a8d05cb9b21b37a9b97fe6ffaa0c36dc619edbec830fabbece8349249b0c49
+
+                    web3.eth.getTransaction(_input, function (error, tx) {
+                        console.log(tx);
+                        document.getElementById("showInfoValue").innerHTML =
+                            "<div> hash : " +
+                            tx.hash +
+                            "</div>" +
+                            "<div> blockNumber :" +
+                            tx.blockNumber +
+                            "</div>" +
+                            "<div> nonce :" +
+                            tx.nonce +
+                            "</div>" +
+                            "<div> from :" +
+                            tx.from +
+                            "</div>" +
+                            "<div> to :" +
+                            tx.to +
+                            "</div>";
+                    });
+                }
+            }
+            // if (typeof _input == "string") {
+            else {
                 // getBlock()애 대한 정버
-                console.log("1맞니?", _input.length);
+                console.log("문자열검열 if문으로 들어왔어요.");
+                console.log("type확인", typeof _input);
+                console.log("Number로바꾸기", Number(_input.number));
+                console.log("type다시확인", typeof _input);
                 web3.eth.getBlock(_input, function (error, block) {
                     console.log(block);
+
                     document.getElementById("showInfoValue").innerHTML =
                         "<div> blockNumber : " +
                         block.number +
@@ -178,48 +247,6 @@
                         "</div>" +
                         "<div> transactions :" +
                         block.transactions +
-                        "</div>";
-                });
-            } else if (_input.length == 42) {
-                //가져오는getBalance()
-                console.log("42맞니?", _input.length);
-                //web3가서 input값을 읽어오는거
-                // var output = web3.eth.getBalance(_input);
-                // web3.eth.toWei(output, "ether");
-                // console.log("output.toNumber()", output.toNumber());
-                console.log(_input);
-
-                document.getElementById("showInfoValue").innerHTML =
-                    "Account : " +
-                    _input +
-                    "<p>Balance :" +
-                    web3.fromWei(web3.eth.getBalance(_input)).toNumber() +
-                    "ETH</p>";
-            } else if (_input.length == 66) {
-                console.log("42맞니?", _input.length);
-                console.log("transaction맞니?", _input);
-                // getTx()
-                //우선 트랜잭션정보가 하나가있어야된다!그래서 이전에
-                //만들어두었던 곳에서 트랜잭션을 하나 발생시켰다!
-                //1 , 0x475a5667b987db35a3fe096abda4fb73ca492d30b2525f4ff5ed58759f5a44bd
-                //2 , 0x7a34a68fbdcbafc0e8a179cff8bdb30d870b33c0de2112acce3fe26e22ce2b4e
-                web3.eth.getTransaction(_input, function (error, tx) {
-                    console.log(tx);
-                    document.getElementById("showInfoValue").innerHTML =
-                        "<div> hash : " +
-                        tx.hash +
-                        "</div>" +
-                        "<div> blockNumber :" +
-                        tx.blockNumber +
-                        "</div>" +
-                        "<div> nonce :" +
-                        tx.nonce +
-                        "</div>" +
-                        "<div> from :" +
-                        tx.from +
-                        "</div>" +
-                        "<div> to :" +
-                        tx.to +
                         "</div>";
                 });
             }

@@ -1,0 +1,281 @@
+
+<!Doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.2.3/milligram.min.css">
+
+<script src="./lib/web3.min.js"></script>
+<body>
+  <div>
+    <label>Contract Code</label>
+    <pre><code>
+      pragma solidity 0.8.6;
+
+      contract Test {
+          string name = "vitalik";
+          event SetName(string name, address sender);
+          
+          function setName(string memory _name) public {
+              name = _name;
+              emit SetName(_name, msg.sender);
+          }
+              
+          function getName() public view returns (string memory) {
+              return name;
+          }
+      }
+    </code></pre>
+  </div>
+  <div>
+    <button onclick="init()">Connect Wallet</button>
+    <div id="account"></div>
+    <pre><code>
+      async function init() {
+
+        if (window.ethereum) {
+            web3 = new Web3(window.ethereum);
+            try {
+              // Request account access if needed
+              await window.ethereum.enable();
+              // Acccounts now exposed
+              web3.eth.getAccounts().then(function(accounts){
+                account = accounts[0]
+              })
+            } catch (error) {
+            }
+          }
+          // Legacy dapp browsers...
+          else if (window.web3) {
+            // Use Mist/MetaMask's provider.
+            web3 = window.web3;
+            console.log("Injected web3 detected.");
+          }
+        }
+    </code></pre>
+  </div>
+  <div>
+    <button onclick="getContract()">Get Contract Instance</button>
+    <div id="contract"></div>
+    <pre><code>
+      let abi = [
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "internalType": "string",
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "indexed": false,
+            "internalType": "address",
+            "name": "sender",
+            "type": "address"
+          }
+        ],
+        "name": "SetName",
+        "type": "event"
+      },
+      {
+        "inputs": [],
+        "name": "getName",
+        "outputs": [
+          {
+            "internalType": "string",
+            "name": "",
+            "type": "string"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "string",
+            "name": "_name",
+            "type": "string"
+          }
+        ],
+        "name": "setName",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      }
+    ]
+      contract = new web3.eth.Contract(abi, "0xAB14DA43978aE2287A88e4BF541dCb791D0F9391")
+
+      // listen event
+      contract.events.SetName({}, function(error, event){ 
+        console.log(event)
+      })
+    </code></pre>
+  </div>
+  <div>
+    <button onclick="getName()">Get Name (view function)</button>
+    <div id="name"></div>
+    <pre><code>
+      function getName(){
+        contract.methods.getName().call()
+        .then(function(result){
+          document.getElementById("name").innerText = result
+        });
+      }
+    </code></pre>
+  </div>
+  <div>
+    <button onclick="setName()">Set Name (Transaction)</button>
+    <input type="text" id="nameInput"/>
+    <pre><code>
+      function setName() {
+        contract.methods.setName("Sooyoung").send(
+          {from: account}
+        )
+        .then(function(receipt){
+            // receipt can also be a new contract instance, when coming from a "contract.deploy({...}).send()"
+            getName()
+        });
+    
+      }
+    </code></pre>
+  </div>
+  <div>
+    <label>Event</label>
+    <div id="eventResult"></div>
+  </div>
+</body>
+
+<script type="text/javascript">
+
+  let provider;
+  let web3;
+  let account;
+  let contract;
+
+ async function init() {
+
+  if (window.ethereum) {
+      web3 = new Web3(window.ethereum);
+      try {
+        // Request account access if needed
+        await window.ethereum.enable();
+        // Acccounts now exposed
+        web3.eth.getAccounts().then(function(accounts){
+          account = accounts[0]
+          document.getElementById("account").innerText = account
+        })
+      } catch (error) {
+      }
+    }
+    // Legacy dapp browsers...
+    else if (window.web3) {
+      // Use Mist/MetaMask's provider.
+      web3 = window.web3;
+      console.log("Injected web3 detected.");
+    }
+  }
+  
+  function getContract() {
+    let abi = [
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_sellcount",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [],
+		"name": "getCount",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getPerson1",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getPerson2",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "purchasePerson1",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "purchasePerson2",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	}
+]
+    contract = new web3.eth.Contract(abi, "0x625acB8EC10fAFf07df49B742C30C781092b7013")
+    document.getElementById("contract").innerText = contract._address
+    console.log(contract)
+
+    // listen event
+    contract.events.SetName({}, function(error, event){ 
+      console.log(event)
+      document.getElementById("eventResult").innerText = event.returnValues.name+", "+event.returnValues.sender
+    })
+    document.getElementById("eventResult").innerText = "Listening..."
+  }
+   
+  function getName(){
+    contract.methods.getName().call()
+    .then(function(result){
+      document.getElementById("name").innerText = result
+    });
+  }
+  
+  function setName() {
+    let name = document.getElementById("nameInput").value
+    contract.methods.setName(name).send(
+      {from: account}
+    )
+    .then(function(receipt){
+        // receipt can also be a new contract instance, when coming from a "contract.deploy({...}).send()"
+        getName()
+    });
+
+  }
+
+  
+
+</script>
+</html>
