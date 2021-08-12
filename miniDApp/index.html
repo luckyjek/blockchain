@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<head>
+    <title>Java Script</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    
+    <!--Google font link-->
+    <link href="https://fonts.googleapis.com/css2?family=Yeon+Sung&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!--My style.css-->
+    <link rel="stylesheet" href="style.css">
+
+    <script src="./lib/web3.min.js"></script>
+
+</head>
+
+<body>
+    <!-- card start -->
+    <!-- http://www.groundseesaw.co.kr/#MEMBERSHIP -->
+    <nav style="font-size:100px; margin: 40px;">
+        Mini Tiketing DApp
+    </nav>
+    <!--계정연결-->
+    <button class="D-Btn" onclick="init()"  >
+        Connect Wallet
+    </button>
+    <div id="account"></div>
+
+    <!-- <button class="D-Btn" onclick="getContract()"></button>
+    <div id="contract"></div> -->
+
+
+
+    <div class="cards">
+        <div class="card" style="width: 18rem;">
+            <img src="http://www.groundseesaw.co.kr/data/main/file1_1622428115l0o94ushqo.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+            <h5 class="card-title">YOSIGO 사진전 : <br/>따뜻한 휴일의 기록</h5>
+            <p class="card-text">'아날로그의 낭만을 사랑하는 스페인 사진작가'<br/>평범한 풍경과 장소를 부드러운 색감과 정갈한 프레임으로
+            담아낸 사진들로 그만의 예술적인 언어(표현)를 구축하였다. </p>
+            <div class=btn>
+            <div class="btn buy"><a href="#" class="btn btn-primary">buy</a></div>
+            <div class="btn price">price<br/>1<img src="ethImg.png" style="width: 40px; height: 40px;" ></div>
+            </div>
+            </div>
+        </div>
+        <div class="card" style="width: 18rem;">
+            <img src="http://www.groundseesaw.co.kr/data/main/file1_1622527686go1n7godsx.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+            <h5 class="card-title">BLUE ROOM: <br/> 푸른 빛과 함께 열리는 새로운 시공간</h5>
+            <p class="card-text">'거대한 도시 속 어두운 콘크리트 공간은 강렬한 푸른 빛의 세계로 새롭게 탄생한다.'<br/>꽃피는 몽환적인 파티클,
+           새로운 시각에서 바라본 숲과 하늘 그리고 더 나은 일상을 선사할 것이다.</p>
+           <div class=btn>
+            <div class="btn buy"><a href="#" class="btn btn-primary">buy</a></div>
+            <div class="btn price">price<br/>0.5<img src="ethImg.png" style="width: 40px; height: 40px;" ></div>
+            </div>
+            </div>
+        </div>
+    
+        <div class="card" style="width: 18rem;">
+            <img src="http://www.groundseesaw.co.kr/data/main/file1_1622428115l0o94ushqo.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+            <h5 class="card-title">YOSIGO 사진전 : <br/>따뜻한 휴일의 기록</h5>
+            <p class="card-text">'아날로그의 낭만을 사랑하는 스페인 사진작가'<br/>평범한 풍경과 장소를 부드러운 색감과 정갈한 프레임으로
+            담아낸 사진들로 그만의 예술적인 언어(표현)를 구축하였다. </p>
+            <div class=btn>
+                <div class="btn buy"><a href="#" class="btn btn-primary">buy</a></div>
+                <div class="btn price">price<br/>1<img src="ethImg.png" style="width: 40px; height: 40px;" ></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="width: 18rem;">
+            <img src="http://www.groundseesaw.co.kr/data/main/file1_1622527686go1n7godsx.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">BLUE ROOM: <br/> 푸른 빛과 함께 열리는 새로운 시공간</h5>
+                <p class="card-text">'거대한 도시 속 어두운 콘크리트 공간은 강렬한 푸른 빛의 세계로 새롭게 탄생한다.'<br/>꽃피는 몽환적인 파티클,
+               새로운 시각에서 바라본 숲과 하늘 그리고 더 나은 일상을 선사할 것이다.</p>
+               <div class=btn>
+                <div class="btn buy"><a href="#" class="btn btn-primary">buy</a></div>
+                <div class="btn price">price<br/>0.5<img src="ethImg.png" style="width: 40px; height: 40px;" ></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- card end -->
+
+
+    <script type="text/javascript"> 
+            // web3가 잘 연동됐는지 확인하는 if문
+        let provider;
+        let web3;
+        let account;
+        let contract;
+
+        async function init() {
+            if (window.ethereum) {
+                web3 = new Web3(window.ethereum);
+                try {
+                    // Request account access if needed
+                    await window.ethereum.enable();
+                    // Acccounts now exposed
+                    web3.eth.getAccounts().then(function (accounts) {
+                        account = accounts[0];
+                        document.getElementById("account").innerText = account;
+                    });
+                } catch (error) {}
+            }
+            // Legacy dapp browsers...
+            else if (window.web3) {
+                // Use Mist/MetaMask's provider.
+                web3 = window.web3;
+                console.log("Injected web3 detected.");
+            }
+        }
+
+
+        function getContract() {
+        
+        //Add contract 
+        let abi = 
+
+        
+        //Add abi
+        contract = new web3.eth.Contract(abi, "0x625acB8EC10fAFf07df49B742C30C781092b7013")
+        document.getElementById("contract").innerText = contract._address
+        console.log(contract)
+
+        // listen event
+        contract.events.SetName({}, function(error, event){ 
+        console.log(event)
+        document.getElementById("eventResult").innerText = event.returnValues.name+", "+event.returnValues.sender
+        })
+        document.getElementById("eventResult").innerText = "Listening..."
+        }
+            
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+
+
+</html>

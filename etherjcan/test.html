@@ -265,20 +265,21 @@
             // }
         }
 
-        // for (let i = 0; i < accounts.length; i++) {
-        //     web3.eth.accounts[i];
-        // }
-
         //miner를 클릭했을때, 그 함수를 호출한다!
         //_account
 
         function accountF() {
+            //전체 블록 싹 긁어서, 거기서 마이너 똑같은거 찾아서 트랜잭션에있는거
+            //싹다긁어서
+
             //그리고나서 그 함수를 구현한다.
             //account함수를 구현하는데, 파라미터로 account주소하나를 입력하나 받는 함수!
             //지금 블록체인에서 해당 account가 관련된 트랜잭션들을 다 가져오는거!
 
             //getblock , getTran, for문 2번
+
             console.log(" I'm in minerF");
+
             //accountF를 누르고, 계정주소를 넣어야돼!
             // web3.eth.getBlock(_input, function (error, block) {
             //     console.log(block);
@@ -287,11 +288,11 @@
                 "<div> blockNumber :</div>";
             // });
 
-            web3.eth.getTransaction(_input, function (error, tx) {
-                console.log(tx);
-                document.getElementById("showInfoValue").innerHTML =
-                    "<div> hash : " + tx.hash + "</div>";
-            });
+            // web3.eth.getTransaction(_input, function (error, tx) {
+            //     console.log(tx);
+            //     document.getElementById("showInfoValue").innerHTML =
+            //         "<div> hash : " + tx.hash + "</div>";
+            // });
         }
     </script>
 </html>

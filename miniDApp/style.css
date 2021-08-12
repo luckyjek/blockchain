@@ -1,0 +1,30 @@
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: "Yeon Sung", cursive;
+    font-size: 15px;
+    background-color: rgb(103, 247, 255);
+}
+
+.cards {
+    display: flex;
+}
+.card {
+    margin: 15px;
+}
+
+.btn {
+    display: flex;
+}
+
+.price {
+    margin-left: 80px;
+}
+
+button {
+    background-color: #fcff50;
+    border-radius: 20px;
+}
