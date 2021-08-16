@@ -29,3 +29,47 @@ contract Tiketing{
     
     
 }
+
+pragma solidity ^0.4.23;
+
+contract MiniProj {
+    struct Customer{
+        address customerAddress;
+        string name;
+        uint age;
+    }
+    
+    uint public sumTiket ;
+    mapping(uint => Customer) public customerInfo;
+    address public owner;
+    
+    event logBuyTiket(
+        address _customer,
+        uint _id
+    );
+    constructor() public {
+    owner = msg.sender;
+    }
+    
+    function buyTiket(uint _id, string memory _name, uint _age) public payable{
+        require( msg.value > 0);
+        Customer storage customer = customerInfo[_id];
+        customer.name = _name;
+        customer.age = _age;
+        
+        sumTiket++;
+        //require(owner.send(msg.value));
+        //owner.transfer(msg.sender);
+        emit logBuyTiket(msg.sender, _id); 
+    }
+    
+    
+    function getTiketInfo(uint _id) public view returns(address ,string, uint){
+        Customer memory customer = customerInfo[_id];
+        return (customer.customerAddress, customer.name,customer.age);
+    }
+    
+    
+  
+   
+}

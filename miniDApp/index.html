@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <head>
     <title>Java Script</title>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+        <!-- BootStrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
     
@@ -28,12 +32,13 @@
     </button>
     <div id="account"></div>
 
-    <!-- <button class="D-Btn" onclick="getContract()"></button>
-    <div id="contract"></div> -->
+    <button class="D-Btn" onclick="getContract()">Get Contract Instance</button>
+    <div id="contract"></div>
 
 
 
     <div class="cards">
+   
         <div class="card" style="width: 18rem;">
             <img src="http://www.groundseesaw.co.kr/data/main/file1_1622428115l0o94ushqo.jpg" class="card-img-top" alt="...">
             <div class="card-body">
@@ -41,11 +46,36 @@
             <p class="card-text">'아날로그의 낭만을 사랑하는 스페인 사진작가'<br/>평범한 풍경과 장소를 부드러운 색감과 정갈한 프레임으로
             담아낸 사진들로 그만의 예술적인 언어(표현)를 구축하였다. </p>
             <div class=btn>
-            <div class="btn buy"><a href="#" class="btn btn-primary">buy</a></div>
+            <!-- <div class="btn buy"><a href="#" class="btn btn-primary" data-target="#buyModal" onclick="buyTiket()">buy</a></div> -->
+            <div class="btn buy"><a href="#" class="btn btn-primary" id="testModal" >buy</a></div>
+            <div class="tiketInfo" id="buytiket"></div>
             <div class="btn price">price<br/>1<img src="ethImg.png" style="width: 40px; height: 40px;" ></div>
             </div>
             </div>
         </div>
+
+        <div class="modal fade" tabindex="-1" role="dialog" id="buyModal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title">티켓 구매자 정보</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="id" /><!--hidden fild_tiket id-->
+                    <input type="hidden" id="price" /><!--hidden fild_tiket price-->
+                  <input type="text" class="form-control" id="name" placeholder="이름" /><br/>
+                  <input type="number" class="from-control" id="age" placeholder="나이" />
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                  <button type="button" class="btn btn-primary" >제출</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+
+
         <div class="card" style="width: 18rem;">
             <img src="http://www.groundseesaw.co.kr/data/main/file1_1622527686go1n7godsx.jpg" class="card-img-top" alt="...">
             <div class="card-body">
@@ -122,19 +152,162 @@
         
         //Add contract 
         let abi = 
+            [
+                {
+                    "constant": true,
+                    "inputs": [
+                        {
+                            "name": "",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "customerInfo",
+                    "outputs": [
+                        {
+                            "name": "customerAddress",
+                            "type": "address"
+                        },
+                        {
+                            "name": "name",
+                            "type": "string"
+                        },
+                        {
+                            "name": "age",
+                            "type": "uint256"
+                        }
+                    ],
+                    "payable": false,
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "constant": true,
+                    "inputs": [],
+                    "name": "sumTiket",
+                    "outputs": [
+                        {
+                            "name": "",
+                            "type": "uint256"
+                        }
+                    ],
+                    "payable": false,
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "constant": true,
+                    "inputs": [
+                        {
+                            "name": "_id",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "getTiketInfo",
+                    "outputs": [
+                        {
+                            "name": "",
+                            "type": "address"
+                        },
+                        {
+                            "name": "",
+                            "type": "string"
+                        },
+                        {
+                            "name": "",
+                            "type": "uint256"
+                        }
+                    ],
+                    "payable": false,
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "constant": false,
+                    "inputs": [
+                        {
+                            "name": "_id",
+                            "type": "uint256"
+                        },
+                        {
+                            "name": "_name",
+                            "type": "string"
+                        },
+                        {
+                            "name": "_age",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "buyTiket",
+                    "outputs": [],
+                    "payable": true,
+                    "stateMutability": "payable",
+                    "type": "function"
+                },
+                {
+                    "constant": true,
+                    "inputs": [],
+                    "name": "owner",
+                    "outputs": [
+                        {
+                            "name": "",
+                            "type": "address"
+                        }
+                    ],
+                    "payable": false,
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "inputs": [],
+                    "payable": false,
+                    "stateMutability": "nonpayable",
+                    "type": "constructor"
+                },
+                {
+                    "anonymous": false,
+                    "inputs": [
+                        {
+                            "indexed": false,
+                            "name": "_customer",
+                            "type": "address"
+                        },
+                        {
+                            "indexed": false,
+                            "name": "_id",
+                            "type": "uint256"
+                        }
+                    ],
+                    "name": "logBuyTiket",
+                    "type": "event"
+                }
+            ]
 
         
         //Add abi
-        contract = new web3.eth.Contract(abi, "0x625acB8EC10fAFf07df49B742C30C781092b7013")
+        contract = new web3.eth.Contract(abi, "0x48C9141588C203C5c7aA1aCd89516ae64c5Cf0e2")
         document.getElementById("contract").innerText = contract._address
         console.log(contract)
 
         // listen event
-        contract.events.SetName({}, function(error, event){ 
-        console.log(event)
-        document.getElementById("eventResult").innerText = event.returnValues.name+", "+event.returnValues.sender
-        })
-        document.getElementById("eventResult").innerText = "Listening..."
+        // contract.events.SetName({}, function(error, event){ 
+        // console.log(event)
+        // document.getElementById("eventResult").innerText = event.returnValues.name+", "+event.returnValues.sender
+        // })
+        // document.getElementById("eventResult").innerText = "Listening..."
+        console.log("end getContract");
+        }
+
+        function buyTiket(){
+            console.log("I'm in buyTiket function");
+          
+          var id= $('#id').val();
+          var id= $('#id').val();
+          var id= $('#id').val();
+          var id= $('#id').val();
+          var id= $('#id').val();
+            // contract.methods.buyTiket().call().then(function(result){
+            //     document.getElementById("buytiket").innerText = result;
+            // });
         }
             
 
@@ -142,9 +315,20 @@
 
 
 
+        $('#testModal').click(function(e){
+			e.preventDefault();
+			$('#buyModal').modal("show");
+		});
+        
+        $(function() 
+        {$('#buyModal').on('show.bs.modal', function(e){
+            let id = $(e.relatedTarget).parent().find('.id').text();
+            let price = web3.toWei(parseFloat($(e.relatedTarget).parent().find('.price').text()||0), "ether");
 
-
-
+            $(e.currentTarget).find('#id').val(id);
+            $(e.currentTarget).find('#price').val(price);
+        });
+        });
     </script>
 </body>
 
