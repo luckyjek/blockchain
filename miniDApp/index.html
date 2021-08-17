@@ -227,147 +227,152 @@
         
         //Add contract 
         let abi = 
-                [
-            {
-                "constant": true,
-                "inputs": [
-                    {
-                        "name": "",
-                        "type": "uint256"
-                    }
-                ],
-                "name": "customerInfo",
-                "outputs": [
-                    {
-                        "name": "customerAddress",
-                        "type": "address"
-                    },
-                    {
-                        "name": "name",
-                        "type": "string"
-                    },
-                    {
-                        "name": "age",
-                        "type": "uint256"
-                    }
-                ],
-                "payable": false,
-                "stateMutability": "view",
-                "type": "function"
-            },
-            {
-                "constant": false,
-                "inputs": [
-                    {
-                        "name": "_id",
-                        "type": "uint256"
-                    },
-                    {
-                        "name": "_addr",
-                        "type": "address"
-                    },
-                    {
-                        "name": "_name",
-                        "type": "string"
-                    },
-                    {
-                        "name": "_age",
-                        "type": "uint256"
-                    }
-                ],
-                "name": "buyTiket",
-                "outputs": [],
-                "payable": true,
-                "stateMutability": "payable",
-                "type": "function"
-            },
-            {
-                "constant": true,
-                "inputs": [],
-                "name": "sumTiket",
-                "outputs": [
-                    {
-                        "name": "",
-                        "type": "uint256"
-                    }
-                ],
-                "payable": false,
-                "stateMutability": "view",
-                "type": "function"
-            },
-            {
-                "constant": true,
-                "inputs": [
-                    {
-                        "name": "_id",
-                        "type": "uint256"
-                    }
-                ],
-                "name": "getTiketInfo",
-                "outputs": [
-                    {
-                        "name": "",
-                        "type": "address"
-                    },
-                    {
-                        "name": "",
-                        "type": "string"
-                    },
-                    {
-                        "name": "",
-                        "type": "uint256"
-                    }
-                ],
-                "payable": false,
-                "stateMutability": "view",
-                "type": "function"
-            },
-            {
-                "constant": true,
-                "inputs": [],
-                "name": "owner",
-                "outputs": [
-                    {
-                        "name": "",
-                        "type": "address"
-                    }
-                ],
-                "payable": false,
-                "stateMutability": "view",
-                "type": "function"
-            },
-            {
-                "inputs": [],
-                "payable": false,
-                "stateMutability": "nonpayable",
-                "type": "constructor"
-            },
-            {
-                "anonymous": false,
-                "inputs": [
-                    {
-                        "indexed": false,
-                        "name": "_customer",
-                        "type": "address"
-                    },
-                    {
-                        "indexed": false,
-                        "name": "_id",
-                        "type": "uint256"
-                    }
-                ],
-                "name": "logBuyTiket",
-                "type": "event"
-            }
-        ]
+        [
+	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "_customer",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "_id",
+				"type": "uint256"
+			}
+		],
+		"name": "logBuyTiket",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_id",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "_addr",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_age",
+				"type": "uint256"
+			}
+		],
+		"name": "buyTiket",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "customerInfo",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "customerAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "age",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_id",
+				"type": "uint256"
+			}
+		],
+		"name": "getTiketInfo",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "sumTiket",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
         //Add abi
-        contract = new web3.eth.Contract(abi, "0x99E4e4F08F68C21e66D1fD77b797044064d9fe20")
+        contract = new web3.eth.Contract(abi, "0x8C1027A4356F761dB9556e4D44Ca1f6D4BCA7829")
         document.getElementById("contract").innerText = contract._address
         console.log(contract)
-        getTiketInfo()
-        getTiketInfo1()
-        getTiketInfo2()
-        getTiketInfo3()
+        //getTiketInfo()
+        //getTiketInfo1()
+        //getTiketInfo2()
+        //getTiketInfo3()
 
 
 
@@ -410,6 +415,7 @@
         "<div> 나이 : " + result[2] + "</div>";
         })
         // btn_off();
+        getTiketInfo()
     }
 
 
@@ -460,7 +466,7 @@
         "<div> 이름 : " + result[1] + "</div>"+
         "<div> 나이 : " + result[2] + "</div>";
         })
-        
+        getTiketInfo1()
     }
 
 
@@ -488,8 +494,8 @@
 
 //세번째 카드
 function getTiketInfo2(){
-       
-        let id = document.getElementById("id").value
+    btn_off2()
+        let id = document.getElementById("id2").value
         contract.methods.getTiketInfo(id).call()
         .then(function(result){
             console.log(result[0], result[1],result[2]);
@@ -497,18 +503,20 @@ function getTiketInfo2(){
         //     console.log(jsonData);
             
         
-        document.getElementById("showCustomerInfo").innerHTML = 
+        document.getElementById("showCustomerInfo2").innerHTML = 
         "<div> 주소 : " + result[0] + "</div>"+
         "<div> 이름 : " + result[1] + "</div>"+
         "<div> 나이 : " + result[2] + "</div>";
         })
         // btn_off();
        // btn_off2() //맨 앞에서 실행될때 , getTiketInfo를 체크하니까, buy함수도 id에 문자가 있는지 체크한 후, 활성화/비활성화해준다.
+    getTiketInfo2()
     }
 
 
 
     function buyTiket2() {
+        
     let id = document.getElementById("id2").value
     let addr = document.getElementById("account").innerText
     let name = document.getElementById("nameInput2").value
@@ -526,16 +534,17 @@ function getTiketInfo2(){
         // receipt can also be a new contract instance, when coming from a "contract.deploy({...}).send()"
         //getName()
         console.log(receipt);
-        document.getElementById("showCustomerInfo").innerHTML = 
-        "<div> blockNumber : " + receipt.blockNumber + "</div>"+
-        "<div> hash : " + receipt.from + "</div>";
+        getTiketInfo2()
     });
+
+
     }
 
 //네번째 카드
 function getTiketInfo3(){
-       // btn_off3() //맨 앞에서 실행될때 , getTiketInfo를 체크하니까, buy함수도 id에 문자가 있는지 체크한 후, 활성화/비활성화해준다.
-        let id = document.getElementById("id").value
+    
+        btn_off3() //맨 앞에서 실행될때 , getTiketInfo를 체크하니까, buy함수도 id에 문자가 있는지 체크한 후, 활성화/비활성화해준다.
+        let id = document.getElementById("id3").value
         contract.methods.getTiketInfo(id).call()
         .then(function(result){
             console.log(result[0], result[1],result[2]);
@@ -543,16 +552,14 @@ function getTiketInfo3(){
         //     console.log(jsonData);
             
         
-        document.getElementById("showCustomerInfo").innerHTML = 
+        document.getElementById("showCustomerInfo3").innerHTML = 
         "<div> 주소 : " + result[0] + "</div>"+
         "<div> 이름 : " + result[1] + "</div>"+
         "<div> 나이 : " + result[2] + "</div>";
         })
         // btn_off();
+        getTiketInfo3()
     }
-
-
-
     function buyTiket3() {
     let id = document.getElementById("id3").value
     let addr = document.getElementById("account").innerText
@@ -571,9 +578,8 @@ function getTiketInfo3(){
         // receipt can also be a new contract instance, when coming from a "contract.deploy({...}).send()"
         //getName()
         console.log(receipt);
-        document.getElementById("showCustomerInfo").innerHTML = 
-        "<div> blockNumber : " + receipt.blockNumber + "</div>"+
-        "<div> hash : " + receipt.from + "</div>";
+        getTiketInfo3();
+
     });
     }
 
