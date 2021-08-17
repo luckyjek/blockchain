@@ -36,85 +36,161 @@
     <div id="contract"></div>
 
 
-
-    <div class="cards">
-   
-        <div class="card" style="width: 18rem;">
-            <img src="http://www.groundseesaw.co.kr/data/main/file1_1622428115l0o94ushqo.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-            <h5 class="card-title">YOSIGO 사진전 : <br/>따뜻한 휴일의 기록</h5>
-            <p class="card-text">'아날로그의 낭만을 사랑하는 스페인 사진작가'<br/>평범한 풍경과 장소를 부드러운 색감과 정갈한 프레임으로
-            담아낸 사진들로 그만의 예술적인 언어(표현)를 구축하였다. </p>
-            <div class=btn>
-            <!-- <div class="btn buy"><a href="#" class="btn btn-primary" data-target="#buyModal" onclick="buyTiket()">buy</a></div> -->
-            <div class="btn buy"><a href="#" class="btn btn-primary" id="testModal" >buy</a></div>
-            <div class="tiketInfo" id="buytiket"></div>
-            <div class="btn price">price<br/>1<img src="ethImg.png" style="width: 40px; height: 40px;" ></div>
-            </div>
-            </div>
-        </div>
-
-        <div class="modal fade" tabindex="-1" role="dialog" id="buyModal">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title">티켓 구매자 정보</h4>
+   <div class="cards">
+            <div>
+                <!-- <div>
+                    <input type="hidden" id="id" value=0 /><br/>
+                    이름: <input type="text" id="nameInput"/><br/>
+                    나이: <input type="number" id="ageInput"/><br/>
+                    <button >buy</button>
+                </div> -->
+                <div class="card" style="width: 18rem;">
+                    <input type="hidden" id="id" value=0 /><br/>
+                    이름: <input type="text" id="nameInput"/><br/>
+                    나이: <input type="number" id="ageInput"/><br/>
+                    <img src="http://www.groundseesaw.co.kr/data/main/file1_1622428115l0o94ushqo.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                    <h5 class="card-title">YOSIGO 사진전 : <br/>따뜻한 휴일의 기록</h5>
+                    <p class="card-text">'아날로그의 낭만을 사랑하는 스페인 사진작가'<br/>평범한 풍경과 장소를 부드러운 색감과 정갈한 프레임으로
+                    담아낸 사진들로 그만의 예술적인 언어(표현)를 구축하였다. </p>
+                    <div class="btn">
+                    <!-- <div class="btn buy"><a href="#" class="btn btn-primary" data-target="#buyModal" onclick="buyTiket()">buy</a></div> -->
+                    <div class="btn buy"><button href="#" class="btn" id="testBtn" style="background-color: yellowgreen;"onclick="buyTiket()">buy</button></div>
+                    <div class="tiketInfo" id="buytiket"></div>
+                    <div class="btn price">price<br/>1<img src="ethImg.png" style="width: 40px; height: 40px; " ></div>
+                    </div>
+                    </div>
+                <div
+                    style="background-color: palevioletred; text-align: center"
+                    id="showCustomerInfo"
+                >
                 </div>
-                <div class="modal-body">
-                    <input type="hidden" id="id" /><!--hidden fild_tiket id-->
-                    <input type="hidden" id="price" /><!--hidden fild_tiket price-->
-                  <input type="text" class="form-control" id="name" placeholder="이름" /><br/>
-                  <input type="number" class="from-control" id="age" placeholder="나이" />
                 </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-                  <button type="button" class="btn btn-primary" onclick="buyTiket()">제출</button>
+               
+            </div>    
+        
+                <!--modal
+                <div class="modal fade" tabindex="-1" role="dialog" id="buyModal">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">티켓 구매자 정보</h4>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" id="id" />
+                            <input type="hidden" id="price" />
+                        <input type="text" class="form-control" id="name" placeholder="이름" /><br/>
+                        <input type="number" class="from-control" id="age" placeholder="나이" />
+                        
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                        <button type="button" class="btn btn-primary" onclick="buyTiket()">제출</button>
+                        </div>
+                    </div>
+                    </div>
                 </div>
-              </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
+                -->
 
 
-        <div class="card" style="width: 18rem;">
-            <img src="http://www.groundseesaw.co.kr/data/main/file1_1622527686go1n7godsx.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-            <h5 class="card-title">BLUE ROOM: <br/> 푸른 빛과 함께 열리는 새로운 시공간</h5>
-            <p class="card-text">'거대한 도시 속 어두운 콘크리트 공간은 강렬한 푸른 빛의 세계로 새롭게 탄생한다.'<br/>꽃피는 몽환적인 파티클,
-           새로운 시각에서 바라본 숲과 하늘 그리고 더 나은 일상을 선사할 것이다.</p>
-           <div class=btn>
-            <div class="btn buy"><a href="#" class="btn btn-primary">buy</a></div>
-            <div class="btn price">price<br/>0.5<img src="ethImg.png" style="width: 40px; height: 40px;" ></div>
-            </div>
-            </div>
-        </div>
-    
-        <div class="card" style="width: 18rem;">
-            <img src="http://www.groundseesaw.co.kr/data/main/file1_1622428115l0o94ushqo.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-            <h5 class="card-title">YOSIGO 사진전 : <br/>따뜻한 휴일의 기록</h5>
-            <p class="card-text">'아날로그의 낭만을 사랑하는 스페인 사진작가'<br/>평범한 풍경과 장소를 부드러운 색감과 정갈한 프레임으로
-            담아낸 사진들로 그만의 예술적인 언어(표현)를 구축하였다. </p>
-            <div class=btn>
-                <div class="btn buy"><a href="#" class="btn btn-primary">buy</a></div>
-                <div class="btn price">price<br/>1<img src="ethImg.png" style="width: 40px; height: 40px;" ></div>
+            <!--두번째 카드-->
+            <div>
+                <!-- <div>
+                    <input type="hidden" id="id" value=1 /><br/>
+                    이름: <input type="text" id="nameInput"/><br/>
+                    나이: <input type="number" id="ageInput"/><br/>
+                    <button onclick="buyTiket()">buy</button>
+                </div> -->
+                <div class="card" style="width: 18rem;">
+                    <input type="hidden" id="id1" value=1 /><br/>
+                    이름: <input type="text" id="nameInput1"/><br/>
+                    나이: <input type="number" id="ageInput1"/><br/>
+                    <img src="http://www.groundseesaw.co.kr/data/main/file1_1622527686go1n7godsx.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                    <h5 class="card-title">BLUE ROOM: <br/> 푸른 빛과 함께 열리는 새로운 시공간</h5>
+                    <p class="card-text">'거대한 도시 속 어두운 콘크리트 공간은 강렬한 푸른 빛의 세계로 새롭게 탄생한다.'<br/>꽃피는 몽환적인 파티클,
+                새로운 시각에서 바라본 숲과 하늘 그리고 더 나은 일상을 선사할 것이다.</p>
+                <div class=btn>                                                                                                     
+                    <!-- <div class="btn buy"><a href="#" class="btn btn-primary disabled" id="testBtn1" aria-disabled="false" onclick="buyTiket1()">buy</a></div> -->
+                    <div class="btn buy"><button href="#" class="btn" id="testBtn1" style="background-color: yellowgreen;"onclick="buyTiket1()">buy</button></div>
+                    <div class="btn price">price<br/>0.5<img src="ethImg.png" style="width: 40px; height: 40px;" ></div>
+                    </div>
+                    </div>
+                    <div
+                    style="background-color: palevioletred; text-align: center"
+                    id="showCustomerInfo1"
+                >
+                   
+                </div>
                 </div>
             </div>
-        </div>
+            
+            <!--세번째 카드-->
+            <div>
+                <div>
+                    <!-- <input type="hidden" id="id" value=2 /><br/>
+                    이름: <input type="text" id="nameInput"/><br/>
+                    나이: <input type="number" id="ageInput"/><br/>
+                    <button onclick="buyTiket()">buy</button> -->
+                </div>
+                <div class="card" style="width: 18rem;">
+                    <input type="hidden" id="id2" value=2 /><br/>
+                    이름: <input type="text" id="nameInput2"/><br/>
+                    나이: <input type="number" id="ageInput2"/><br/>
+                    <img src="http://www.groundseesaw.co.kr/data/main/file1_1622428115l0o94ushqo.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                    <h5 class="card-title">YOSIGO 사진전 : <br/>따뜻한 휴일의 기록</h5>
+                    <p class="card-text">'아날로그의 낭만을 사랑하는 스페인 사진작가'<br/>평범한 풍경과 장소를 부드러운 색감과 정갈한 프레임으로
+                    담아낸 사진들로 그만의 예술적인 언어(표현)를 구축하였다. </p>
+                    <div class=btn>
+                        <!-- <div class="btn buy"><a href="#" class="btn btn-primary " id="testBtn2" aria-disabled="false"  onclick="buyTiket2(); btn_off2();">buy</a></div> -->
+                        <div class="btn buy"><button href="#" class="btn" id="testBtn2" style="background-color: yellowgreen;"onclick="buyTiket2()">buy</button></div>
+                        <div class="btn price">price<br/>1<img src="ethImg.png" style="width: 40px; height: 40px;" ></div>
+                        </div>
+                    </div>
+                    <div
+                    style="background-color: palevioletred; text-align: center"
+                    id="showCustomerInfo2"
+                >
+                  
+                </div>
+                </div>
+            </div>
 
-        <div class="card" style="width: 18rem;">
-            <img src="http://www.groundseesaw.co.kr/data/main/file1_1622527686go1n7godsx.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">BLUE ROOM: <br/> 푸른 빛과 함께 열리는 새로운 시공간</h5>
-                <p class="card-text">'거대한 도시 속 어두운 콘크리트 공간은 강렬한 푸른 빛의 세계로 새롭게 탄생한다.'<br/>꽃피는 몽환적인 파티클,
-               새로운 시각에서 바라본 숲과 하늘 그리고 더 나은 일상을 선사할 것이다.</p>
-               <div class=btn>
-                <div class="btn buy"><a href="#" class="btn btn-primary">buy</a></div>
-                <div class="btn price">price<br/>0.5<img src="ethImg.png" style="width: 40px; height: 40px;" ></div>
+            <!--네번째 카드-->    
+            <div>
+                <!-- <div>
+                    <input type="hidden" id="id" value=3 /><br/>
+                    이름: <input type="text" id="nameInput"/><br/>
+                    나이: <input type="number" id="ageInput"/><br/>
+                    <button onclick="buyTiket()">buy</button>
+                </div> -->
+                <div class="card" style="width: 18rem;">
+                    <input type="hidden" id="id3" value=3 /><br/>
+                    이름: <input type="text" id="nameInput3"/><br/>
+                    나이: <input type="number" id="ageInput3"/><br/>
+                    <img src="http://www.groundseesaw.co.kr/data/main/file1_1622527686go1n7godsx.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">BLUE ROOM: <br/> 푸른 빛과 함께 열리는 새로운 시공간</h5>
+                        <p class="card-text">'거대한 도시 속 어두운 콘크리트 공간은 강렬한 푸른 빛의 세계로 새롭게 탄생한다.'<br/>꽃피는 몽환적인 파티클,
+                    새로운 시각에서 바라본 숲과 하늘 그리고 더 나은 일상을 선사할 것이다.</p>
+                    <div class=btn>
+                        <!-- <div class="btn buy"><a href="#" class="btn btn-primary " id="testBtn3" aria-disabled="false"  onclick="buyTiket3(); btn_off3();">buy</a></div> -->
+                        <div class="btn buy"><button href="#" class="btn" id="testBtn3" style="background-color: yellowgreen;"onclick="buyTiket3()">buy</button></div>
+                        <div class="btn price">price<br/>0.5<img src="ethImg.png" style="width: 40px; height: 40px;" ></div>
+                        </div>
+                    </div>
+                    <div
+                    style="background-color: palevioletred; text-align: center"
+                    id="showCustomerInfo3"
+                >
+                    
+                </div>
                 </div>
             </div>
-        </div>
     </div>
+
     <!-- card end -->
 
 
@@ -151,141 +227,149 @@
         
         //Add contract 
         let abi = 
-            [
-                {
-                    "constant": true,
-                    "inputs": [
-                        {
-                            "name": "",
-                            "type": "uint256"
-                        }
-                    ],
-                    "name": "customerInfo",
-                    "outputs": [
-                        {
-                            "name": "customerAddress",
-                            "type": "address"
-                        },
-                        {
-                            "name": "name",
-                            "type": "string"
-                        },
-                        {
-                            "name": "age",
-                            "type": "uint256"
-                        }
-                    ],
-                    "payable": false,
-                    "stateMutability": "view",
-                    "type": "function"
-                },
-                {
-                    "constant": true,
-                    "inputs": [],
-                    "name": "sumTiket",
-                    "outputs": [
-                        {
-                            "name": "",
-                            "type": "uint256"
-                        }
-                    ],
-                    "payable": false,
-                    "stateMutability": "view",
-                    "type": "function"
-                },
-                {
-                    "constant": true,
-                    "inputs": [
-                        {
-                            "name": "_id",
-                            "type": "uint256"
-                        }
-                    ],
-                    "name": "getTiketInfo",
-                    "outputs": [
-                        {
-                            "name": "",
-                            "type": "address"
-                        },
-                        {
-                            "name": "",
-                            "type": "string"
-                        },
-                        {
-                            "name": "",
-                            "type": "uint256"
-                        }
-                    ],
-                    "payable": false,
-                    "stateMutability": "view",
-                    "type": "function"
-                },
-                {
-                    "constant": false,
-                    "inputs": [
-                        {
-                            "name": "_id",
-                            "type": "uint256"
-                        },
-                        {
-                            "name": "_name",
-                            "type": "string"
-                        },
-                        {
-                            "name": "_age",
-                            "type": "uint256"
-                        }
-                    ],
-                    "name": "buyTiket",
-                    "outputs": [],
-                    "payable": true,
-                    "stateMutability": "payable",
-                    "type": "function"
-                },
-                {
-                    "constant": true,
-                    "inputs": [],
-                    "name": "owner",
-                    "outputs": [
-                        {
-                            "name": "",
-                            "type": "address"
-                        }
-                    ],
-                    "payable": false,
-                    "stateMutability": "view",
-                    "type": "function"
-                },
-                {
-                    "inputs": [],
-                    "payable": false,
-                    "stateMutability": "nonpayable",
-                    "type": "constructor"
-                },
-                {
-                    "anonymous": false,
-                    "inputs": [
-                        {
-                            "indexed": false,
-                            "name": "_customer",
-                            "type": "address"
-                        },
-                        {
-                            "indexed": false,
-                            "name": "_id",
-                            "type": "uint256"
-                        }
-                    ],
-                    "name": "logBuyTiket",
-                    "type": "event"
-                }
-            ]
-
-        
+                [
+            {
+                "constant": true,
+                "inputs": [
+                    {
+                        "name": "",
+                        "type": "uint256"
+                    }
+                ],
+                "name": "customerInfo",
+                "outputs": [
+                    {
+                        "name": "customerAddress",
+                        "type": "address"
+                    },
+                    {
+                        "name": "name",
+                        "type": "string"
+                    },
+                    {
+                        "name": "age",
+                        "type": "uint256"
+                    }
+                ],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "constant": false,
+                "inputs": [
+                    {
+                        "name": "_id",
+                        "type": "uint256"
+                    },
+                    {
+                        "name": "_addr",
+                        "type": "address"
+                    },
+                    {
+                        "name": "_name",
+                        "type": "string"
+                    },
+                    {
+                        "name": "_age",
+                        "type": "uint256"
+                    }
+                ],
+                "name": "buyTiket",
+                "outputs": [],
+                "payable": true,
+                "stateMutability": "payable",
+                "type": "function"
+            },
+            {
+                "constant": true,
+                "inputs": [],
+                "name": "sumTiket",
+                "outputs": [
+                    {
+                        "name": "",
+                        "type": "uint256"
+                    }
+                ],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "constant": true,
+                "inputs": [
+                    {
+                        "name": "_id",
+                        "type": "uint256"
+                    }
+                ],
+                "name": "getTiketInfo",
+                "outputs": [
+                    {
+                        "name": "",
+                        "type": "address"
+                    },
+                    {
+                        "name": "",
+                        "type": "string"
+                    },
+                    {
+                        "name": "",
+                        "type": "uint256"
+                    }
+                ],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "constant": true,
+                "inputs": [],
+                "name": "owner",
+                "outputs": [
+                    {
+                        "name": "",
+                        "type": "address"
+                    }
+                ],
+                "payable": false,
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "inputs": [],
+                "payable": false,
+                "stateMutability": "nonpayable",
+                "type": "constructor"
+            },
+            {
+                "anonymous": false,
+                "inputs": [
+                    {
+                        "indexed": false,
+                        "name": "_customer",
+                        "type": "address"
+                    },
+                    {
+                        "indexed": false,
+                        "name": "_id",
+                        "type": "uint256"
+                    }
+                ],
+                "name": "logBuyTiket",
+                "type": "event"
+            }
+        ]
         //Add abi
-        contract = new web3.eth.Contract(abi, "0x48C9141588C203C5c7aA1aCd89516ae64c5Cf0e2")
+        contract = new web3.eth.Contract(abi, "0x99E4e4F08F68C21e66D1fD77b797044064d9fe20")
         document.getElementById("contract").innerText = contract._address
         console.log(contract)
+        getTiketInfo()
+        getTiketInfo1()
+        getTiketInfo2()
+        getTiketInfo3()
+
+
 
         // listen event
         // contract.events.SetName({}, function(error, event){ 
@@ -296,38 +380,261 @@
         console.log("end getContract");
         }
 
-        function buyTiket(){
-            console.log("I'm in buyTiket function");
+        // function buyTiket(){
+        //     console.log("I'm in buyTiket function");
           
-          var id = $('#id').val();
-          var name = $('#name').val();
-          var price = $('#price').val();
-          var age = $('#age').val();
+        //   var id = $('#id').val();
+        //   var name = $('#name').val();
+        //   var price = $('#price').val();
+        //   var age = $('#age').val();
 
-          console.log(id);
-          console.log(name);
-          console.log(price);
-          console.log(age);
-            // contract.methods.buyTiket().call().then(function(result){
-            //     document.getElementById("buytiket").innerText = result;
-            // });
-        }
+        //     // contract.methods.buyTiket().call().then(function(result){
+        //     //     document.getElementById("buytiket").innerText = result;
+        //     // });
+        // }
+  
+//첫번째카드
+    function getTiketInfo(){
+        btn_off() //맨 앞에서 실행될때 , getTiketInfo를 체크하니까, buy함수도 id에 문자가 있는지 체크한 후, 활성화/비활성화해준다.
+        let id = document.getElementById("id").value
+        contract.methods.getTiketInfo(id).call()
+        .then(function(result){
+            console.log(result[0], result[1],result[2]);
+        // let jsonData = JSON.stringify(result);
+        //     console.log(jsonData);
             
-
-        $('#testModal').click(function(e){
-			e.preventDefault();
-			$('#buyModal').modal("show");
-		});
         
-        $(function() 
-        {$('#buyModal').on('show.bs.modal', function(e){
-            let id = $(e.relatedTarget).parent().find('.id').text();
-            // let price = web3.toWei(parseFloat($(e.relatedTarget).parent().find('.price').text()||0), "ether");
+        document.getElementById("showCustomerInfo").innerHTML = 
+        "<div> 주소 : " + result[0] + "</div>"+
+        "<div> 이름 : " + result[1] + "</div>"+
+        "<div> 나이 : " + result[2] + "</div>";
+        })
+        // btn_off();
+    }
 
-            $(e.currentTarget).find('#id').val(id);
-            $(e.currentTarget).find('#price').val(price);
-        });
-        });
+
+    function buyTiket() {
+  
+    let id = document.getElementById("id").value
+    let addr = document.getElementById("account").innerText
+    let name = document.getElementById("nameInput").value
+    let age = document.getElementById("ageInput").value
+    // contract.methods.buyTiket(_id,name,age).send(
+        console.log(id);
+        console.log(addr);
+        console.log(name);
+        console.log(age);
+       
+    contract.methods.buyTiket(id,addr,name,age).send(
+      {from: account, value: web3.utils.toWei("0.1")}
+
+    )
+    .then(function(receipt){
+        // receipt can also be a new contract instance, when coming from a "contract.deploy({...}).send()"
+        //getName()
+    
+        // console.log(receipt);
+        // document.getElementById("showCustomerInfo").innerHTML = 
+        // "<div> blockNumber : " + receipt.blockNumber + "</div>"+
+        // "<div> hash : " + receipt.from + "</div>";
+        getTiketInfo()
+    });
+   
+    }
+
+
+
+//두번째 카드
+    function getTiketInfo1(){
+        btn_off1()
+        let id = document.getElementById("id1").value
+        contract.methods.getTiketInfo(id).call()
+        .then(function(result){
+            console.log(result[0], result[1],result[2]);
+        // let jsonData = JSON.stringify(result);
+        //     console.log(jsonData);
+            
+        
+        document.getElementById("showCustomerInfo1").innerHTML = 
+        "<div> 주소 : " + result[0] + "</div>"+
+        "<div> 이름 : " + result[1] + "</div>"+
+        "<div> 나이 : " + result[2] + "</div>";
+        })
+        
+    }
+
+
+    function buyTiket1() {
+    let id = document.getElementById("id1").value
+    let addr = document.getElementById("account").innerText
+    let name = document.getElementById("nameInput1").value
+    let age = document.getElementById("ageInput1").value
+    // contract.methods.buyTiket(_id,name,age).send(
+        console.log(id);
+        console.log(addr);
+        console.log(name);
+        console.log(age);
+    contract.methods.buyTiket(id,addr,name,age).send(
+      {from: account, value: web3.utils.toWei("0.1")}
+
+    )
+    .then(function(receipt){
+        // receipt can also be a new contract instance, when coming from a "contract.deploy({...}).send()"
+        //getName()
+        getTiketInfo1()
+    });
+
+    }
+
+//세번째 카드
+function getTiketInfo2(){
+       
+        let id = document.getElementById("id").value
+        contract.methods.getTiketInfo(id).call()
+        .then(function(result){
+            console.log(result[0], result[1],result[2]);
+        // let jsonData = JSON.stringify(result);
+        //     console.log(jsonData);
+            
+        
+        document.getElementById("showCustomerInfo").innerHTML = 
+        "<div> 주소 : " + result[0] + "</div>"+
+        "<div> 이름 : " + result[1] + "</div>"+
+        "<div> 나이 : " + result[2] + "</div>";
+        })
+        // btn_off();
+       // btn_off2() //맨 앞에서 실행될때 , getTiketInfo를 체크하니까, buy함수도 id에 문자가 있는지 체크한 후, 활성화/비활성화해준다.
+    }
+
+
+
+    function buyTiket2() {
+    let id = document.getElementById("id2").value
+    let addr = document.getElementById("account").innerText
+    let name = document.getElementById("nameInput2").value
+    let age = document.getElementById("ageInput2").value
+    // contract.methods.buyTiket(_id,name,age).send(
+        console.log(id);
+        console.log(addr);
+        console.log(name);
+        console.log(age);
+    contract.methods.buyTiket(id,addr,name,age).send(
+      {from: account, value: web3.utils.toWei("0.1")}
+
+    )
+    .then(function(receipt){
+        // receipt can also be a new contract instance, when coming from a "contract.deploy({...}).send()"
+        //getName()
+        console.log(receipt);
+        document.getElementById("showCustomerInfo").innerHTML = 
+        "<div> blockNumber : " + receipt.blockNumber + "</div>"+
+        "<div> hash : " + receipt.from + "</div>";
+    });
+    }
+
+//네번째 카드
+function getTiketInfo3(){
+       // btn_off3() //맨 앞에서 실행될때 , getTiketInfo를 체크하니까, buy함수도 id에 문자가 있는지 체크한 후, 활성화/비활성화해준다.
+        let id = document.getElementById("id").value
+        contract.methods.getTiketInfo(id).call()
+        .then(function(result){
+            console.log(result[0], result[1],result[2]);
+        // let jsonData = JSON.stringify(result);
+        //     console.log(jsonData);
+            
+        
+        document.getElementById("showCustomerInfo").innerHTML = 
+        "<div> 주소 : " + result[0] + "</div>"+
+        "<div> 이름 : " + result[1] + "</div>"+
+        "<div> 나이 : " + result[2] + "</div>";
+        })
+        // btn_off();
+    }
+
+
+
+    function buyTiket3() {
+    let id = document.getElementById("id3").value
+    let addr = document.getElementById("account").innerText
+    let name = document.getElementById("nameInput3").value
+    let age = document.getElementById("ageInput3").value
+    // contract.methods.buyTiket(_id,name,age).send(
+        console.log(id);
+        console.log(addr);
+        console.log(name);
+        console.log(age);
+    contract.methods.buyTiket(id,addr,name,age).send(
+      {from: account, value: web3.utils.toWei("0.1")}
+
+    )
+    .then(function(receipt){
+        // receipt can also be a new contract instance, when coming from a "contract.deploy({...}).send()"
+        //getName()
+        console.log(receipt);
+        document.getElementById("showCustomerInfo").innerHTML = 
+        "<div> blockNumber : " + receipt.blockNumber + "</div>"+
+        "<div> hash : " + receipt.from + "</div>";
+    });
+    }
+
+        // $('#testModal').click(function(e){
+		// 	e.preventDefault();
+		// 	$('#buyModal').modal("show");
+		// });
+        
+
+        // $(function() 
+        // {$('#buyModal').on('show.bs.modal', function(e){
+        //     let id = $(e.relatedTarget).parent().find('.id').text();
+        //     // let price = web3.toWei(parseFloat($(e.relatedTarget).parent().find('.price').text()||0), "ether");
+
+        //     $(e.currentTarget).find('#id').val(id);
+        //     $(e.currentTarget).find('#price').val(price);
+        // });
+        // });
+
+        function btn_off() {
+            // let myBtn = document.getElementById('testBtn').getAttribute('aria-disabled');
+            let target = document.getElementById('testBtn')
+            let check = document.getElementById('showCustomerInfo')
+            if(check !== ""){
+            target.disabled = true;
+        }
+            // btn = document.getElementById('btn');
+            // btn.disabled = 'disabled';
+        }
+
+        function btn_off1() {
+            // let myBtn = document.getElementById('testBtn1').getAttribute('aria-disabled');
+            let target = document.getElementById('testBtn1')
+            let check = document.getElementById('showCustomerInfo1')
+            if(check !== ""){
+            target.disabled = true;
+        }
+            // btn = document.getElementById('btn');
+            // btn.disabled = 'disabled';
+        }
+        function btn_off2() {
+            let target = document.getElementById('testBtn2')
+            let check = document.getElementById('showCustomerInfo2')
+            if(check !== ""){
+            target.disabled = true;
+        }else{
+            target.disabled = false;
+        }
+            // btn = document.getElementById('btn');
+            // btn.disabled = 'disabled';
+        }
+        function btn_off3() {
+            let target = document.getElementById('testBtn3')
+            let check = document.getElementById('showCustomerInfo3')
+            if(check !== ""){
+            target.disabled = true;
+        }
+            // btn = document.getElementById('btn');
+            // btn.disabled = 'disabled';
+        }
+
     </script>
 </body>
 
