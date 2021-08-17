@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="style.css">
 
     <script src="./lib/web3.min.js"></script>
-
+    <script src="./tiket.js"></script>
 </head>
 
 <body>
@@ -69,11 +69,11 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-                  <button type="button" class="btn btn-primary" >제출</button>
+                  <button type="button" class="btn btn-primary" onclick="buyTiket()">제출</button>
                 </div>
               </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
-          </div><!-- /.modal -->
+        </div><!-- /.modal -->
 
 
         <div class="card" style="width: 18rem;">
@@ -115,7 +115,6 @@
             </div>
         </div>
     </div>
-
     <!-- card end -->
 
 
@@ -300,20 +299,20 @@
         function buyTiket(){
             console.log("I'm in buyTiket function");
           
-          var id= $('#id').val();
-          var id= $('#id').val();
-          var id= $('#id').val();
-          var id= $('#id').val();
-          var id= $('#id').val();
+          var id = $('#id').val();
+          var name = $('#name').val();
+          var price = $('#price').val();
+          var age = $('#age').val();
+
+          console.log(id);
+          console.log(name);
+          console.log(price);
+          console.log(age);
             // contract.methods.buyTiket().call().then(function(result){
             //     document.getElementById("buytiket").innerText = result;
             // });
         }
             
-
-
-
-
 
         $('#testModal').click(function(e){
 			e.preventDefault();
@@ -323,7 +322,7 @@
         $(function() 
         {$('#buyModal').on('show.bs.modal', function(e){
             let id = $(e.relatedTarget).parent().find('.id').text();
-            let price = web3.toWei(parseFloat($(e.relatedTarget).parent().find('.price').text()||0), "ether");
+            // let price = web3.toWei(parseFloat($(e.relatedTarget).parent().find('.price').text()||0), "ether");
 
             $(e.currentTarget).find('#id').val(id);
             $(e.currentTarget).find('#price').val(price);
