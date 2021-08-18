@@ -453,7 +453,7 @@
         console.log(age);
        
     contract.methods.buyTiket(id,addr,name,age).send(
-      {from: account, value: web3.utils.toWei("0.1")}
+      {from: account, value: web3.utils.toWei("1")}
 
     )
     .then(function(receipt){
@@ -527,7 +527,7 @@
         console.log(name);
         console.log(age);
     contract.methods.buyTiket(id,addr,name,age).send(
-      {from: account, value: web3.utils.toWei("0.1")}
+      {from: account, value: web3.utils.toWei("0.5")}
 
     )
     .then(function(receipt){
@@ -587,7 +587,7 @@ function getTiketInfo2(){
         console.log(name);
         console.log(age);
     contract.methods.buyTiket(id,addr,name,age).send(
-      {from: account, value: web3.utils.toWei("0.1")}
+      {from: account, value: web3.utils.toWei("1")}
 
     )
     .then(function(receipt){
@@ -643,7 +643,7 @@ function getTiketInfo3(){
         console.log(name);
         console.log(age);
     contract.methods.buyTiket(id,addr,name,age).send(
-      {from: account, value: web3.utils.toWei("0.1")}
+      {from: account, value: web3.utils.toWei("0.5")}
 
     )
     .then(function(receipt){
