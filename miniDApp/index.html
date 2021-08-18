@@ -19,6 +19,8 @@
     <script src="./lib/web3.min.js"></script>
     <script src="./tiket.js"></script>
 </head>
+<!-- <input type="text" name="text1" id="text1" style="display:none">
+<input type="button" onclick="document.getElementById('text1').style.display='block';"> -->
 
 <body>
     <!-- card start -->
@@ -46,8 +48,8 @@
                 </div> -->
                 <div class="card" style="width: 18rem;">
                     <input type="hidden" id="id" value=0 /><br/>
-                    이름: <input type="text" id="nameInput"/><br/>
-                    나이: <input type="number" id="ageInput"/><br/>
+                    <input type="text" id="nameInput" placeholder="Input Name" style="display:inline" /><br/>
+                    <input type="number" id="ageInput" placeholder="Input Age" style="display:inline" /><br/>
                     <img src="http://www.groundseesaw.co.kr/data/main/file1_1622428115l0o94ushqo.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                     <h5 class="card-title">YOSIGO 사진전 : <br/>따뜻한 휴일의 기록</h5>
@@ -104,8 +106,8 @@
                 </div> -->
                 <div class="card" style="width: 18rem;">
                     <input type="hidden" id="id1" value=1 /><br/>
-                    이름: <input type="text" id="nameInput1"/><br/>
-                    나이: <input type="number" id="ageInput1"/><br/>
+                    <input type="text" id="nameInput1" placeholder="Input Name" style="display:inline" /><br/>
+                    <input type="number" id="ageInput1" placeholder="Input Age" style="display:inline" /><br/>
                     <img src="http://www.groundseesaw.co.kr/data/main/file1_1622527686go1n7godsx.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                     <h5 class="card-title">BLUE ROOM: <br/> 푸른 빛과 함께 열리는 새로운 시공간</h5>
@@ -136,8 +138,8 @@
                 </div>
                 <div class="card" style="width: 18rem;">
                     <input type="hidden" id="id2" value=2 /><br/>
-                    이름: <input type="text" id="nameInput2"/><br/>
-                    나이: <input type="number" id="ageInput2"/><br/>
+                    <input type="text" placeholder="Input Name" id="nameInput2"/><br/>
+                    <input type="number" placeholder="Input Age" id="ageInput2"/><br/>
                     <img src="http://www.groundseesaw.co.kr/data/main/file1_1622428115l0o94ushqo.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                     <h5 class="card-title">YOSIGO 사진전 : <br/>따뜻한 휴일의 기록</h5>
@@ -168,8 +170,8 @@
                 </div> -->
                 <div class="card" style="width: 18rem;">
                     <input type="hidden" id="id3" value=3 /><br/>
-                    이름: <input type="text" id="nameInput3"/><br/>
-                    나이: <input type="number" id="ageInput3"/><br/>
+                    <input type="text" placeholder="Input Name"  id="nameInput3"/><br/>
+                    <input type="number"  placeholder="Input Age" id="ageInput3"/><br/>
                     <img src="http://www.groundseesaw.co.kr/data/main/file1_1622527686go1n7godsx.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">BLUE ROOM: <br/> 푸른 빛과 함께 열리는 새로운 시공간</h5>
@@ -366,7 +368,7 @@
 	}
 ]
         //Add abi
-        contract = new web3.eth.Contract(abi, "0x04F3151Dd899377056ab45FE675aC3EBC5449747")
+        contract = new web3.eth.Contract(abi, "0x19F8d1d6D4db97C910b9487a8592e0A36580D031")
         document.getElementById("contract").innerText = contract._address
         console.log(contract)
         getTiketInfo()
@@ -407,6 +409,10 @@
         //값이 있을때만, 버튼이 활성화 되게끔해라 
         
         let id = document.getElementById("id").value
+
+        let nameInput = document.getElementById("nameInput")
+        let ageInput = document.getElementById("ageInput")
+
         contract.methods.getTiketInfo(id).call()
         .then(function(result){
             console.log(result);
@@ -425,6 +431,8 @@
             "<div> 이름 : " + result[1] + "</div>"+
             "<div> 나이 : " + result[2] + "</div>";
             btn_off();
+            nameInput.style.display="none";
+            ageInput.style.display="none";
         }
         })
         // btn_off();
@@ -474,6 +482,12 @@
     function getTiketInfo1(){
      //값이 있을때만, 버튼이 활성화 되게끔해라 
         let id = document.getElementById("id1").value
+
+        
+        let nameInput = document.getElementById("nameInput1")
+        let ageInput = document.getElementById("ageInput1")
+
+
         contract.methods.getTiketInfo(id).call()
         
         .then(function(result){
@@ -493,6 +507,8 @@
         "<div> 이름 : " + result[1] + "</div>"+
         "<div> 나이 : " + result[2] + "</div>";
         btn_off1(); 
+        nameInput.style.display="none";
+        ageInput.style.display="none";
          }
         })
         // btn_off1();
@@ -518,7 +534,7 @@
         // receipt can also be a new contract instance, when coming from a "contract.deploy({...}).send()"
         //getName()
         getTiketInfo1()
-        btn_off1();
+        
     });
 
     }
@@ -527,6 +543,10 @@
 function getTiketInfo2(){
 
         let id = document.getElementById("id2").value
+
+        let nameInput = document.getElementById("nameInput2")
+        let ageInput = document.getElementById("ageInput2")
+
         contract.methods.getTiketInfo(id).call()
         .then(function(result){
             console.log(result[0], result[1],result[2]);
@@ -544,6 +564,8 @@ function getTiketInfo2(){
         "<div> 이름 : " + result[1] + "</div>"+
         "<div> 나이 : " + result[2] + "</div>";
         btn_off2();
+        nameInput.style.display="none";
+        ageInput.style.display="none";
     }
         })
         
@@ -573,7 +595,6 @@ function getTiketInfo2(){
         //getName()
         console.log(receipt);
         getTiketInfo2()
-        btn_off2();
     });
 
 
@@ -584,6 +605,10 @@ function getTiketInfo3(){
 
 
         let id = document.getElementById("id3").value
+
+        let nameInput = document.getElementById("nameInput3")
+        let ageInput = document.getElementById("ageInput3")
+
         contract.methods.getTiketInfo(id).call()
         .then(function(result){
             console.log(result[0], result[1],result[2]);
@@ -600,6 +625,9 @@ function getTiketInfo3(){
         "<div> 주소 : " + result[0] + "</div>"+
         "<div> 이름 : " + result[1] + "</div>"+
         "<div> 나이 : " + result[2] + "</div>";
+        btn_off3();
+        nameInput.style.display="none";
+        ageInput.style.display="none";
     }
         })
         // btn_off();
@@ -623,7 +651,6 @@ function getTiketInfo3(){
         //getName()
         console.log(receipt);
         getTiketInfo3();
-        btn_off3();
     });
     }
 
