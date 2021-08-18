@@ -55,7 +55,7 @@
                     담아낸 사진들로 그만의 예술적인 언어(표현)를 구축하였다. </p>
                     <div class="btn">
                     <!-- <div class="btn buy"><a href="#" class="btn btn-primary" data-target="#buyModal" onclick="buyTiket()">buy</a></div> -->
-                    <div class="btn buy"><button href="#" class="btn" id="testBtn" style="background-color: yellowgreen;"onclick="buyTiket()">buy</button></div>
+                    <div class="btn buy"><button href="#" class="btn" id="testBtn" style="background-color: yellowgreen;"onclick="buyTiket(); ">buy</button></div>
                     <div class="tiketInfo" id="buytiket"></div>
                     <div class="btn price">price<br/>1<img src="ethImg.png" style="width: 40px; height: 40px; " ></div>
                     </div>
@@ -113,7 +113,7 @@
                 새로운 시각에서 바라본 숲과 하늘 그리고 더 나은 일상을 선사할 것이다.</p>
                 <div class=btn>                                                                                                     
                     <!-- <div class="btn buy"><a href="#" class="btn btn-primary disabled" id="testBtn1" aria-disabled="false" onclick="buyTiket1()">buy</a></div> -->
-                    <div class="btn buy"><button href="#" class="btn" id="testBtn1" style="background-color: yellowgreen;"onclick="buyTiket1()">buy</button></div>
+                    <div class="btn buy"><button href="#" class="btn" id="testBtn1" style="background-color: yellowgreen;"onclick="buyTiket1();">buy</button></div>
                     <div class="btn price">price<br/>0.5<img src="ethImg.png" style="width: 40px; height: 40px;" ></div>
                     </div>
                     </div>
@@ -145,7 +145,7 @@
                     담아낸 사진들로 그만의 예술적인 언어(표현)를 구축하였다. </p>
                     <div class=btn>
                         <!-- <div class="btn buy"><a href="#" class="btn btn-primary " id="testBtn2" aria-disabled="false"  onclick="buyTiket2(); btn_off2();">buy</a></div> -->
-                        <div class="btn buy"><button href="#" class="btn" id="testBtn2" style="background-color: yellowgreen;"onclick="buyTiket2()">buy</button></div>
+                        <div class="btn buy"><button href="#" class="btn" id="testBtn2" style="background-color: yellowgreen;"onclick="buyTiket2();">buy</button></div>
                         <div class="btn price">price<br/>1<img src="ethImg.png" style="width: 40px; height: 40px;" ></div>
                         </div>
                     </div>
@@ -177,7 +177,7 @@
                     새로운 시각에서 바라본 숲과 하늘 그리고 더 나은 일상을 선사할 것이다.</p>
                     <div class=btn>
                         <!-- <div class="btn buy"><a href="#" class="btn btn-primary " id="testBtn3" aria-disabled="false"  onclick="buyTiket3(); btn_off3();">buy</a></div> -->
-                        <div class="btn buy"><button href="#" class="btn" id="testBtn3" style="background-color: yellowgreen;"onclick="buyTiket3()">buy</button></div>
+                        <div class="btn buy"><button href="#" class="btn" id="testBtn3" style="background-color: yellowgreen;"onclick="buyTiket3();">buy</button></div>
                         <div class="btn price">price<br/>0.5<img src="ethImg.png" style="width: 40px; height: 40px;" ></div>
                         </div>
                     </div>
@@ -366,13 +366,17 @@
 	}
 ]
         //Add abi
-        contract = new web3.eth.Contract(abi, "0x8C1027A4356F761dB9556e4D44Ca1f6D4BCA7829")
+        contract = new web3.eth.Contract(abi, "0x04F3151Dd899377056ab45FE675aC3EBC5449747")
         document.getElementById("contract").innerText = contract._address
         console.log(contract)
-        //getTiketInfo()
-        //getTiketInfo1()
-        //getTiketInfo2()
-        //getTiketInfo3()
+        getTiketInfo()
+        // btn_off() 
+        getTiketInfo1()
+        // btn_off1() 
+        getTiketInfo2()
+        // btn_off2()
+        getTiketInfo3()
+        // btn_off3() 
 
 
 
@@ -400,27 +404,36 @@
   
 //첫번째카드
     function getTiketInfo(){
-        btn_off() //맨 앞에서 실행될때 , getTiketInfo를 체크하니까, buy함수도 id에 문자가 있는지 체크한 후, 활성화/비활성화해준다.
+        //값이 있을때만, 버튼이 활성화 되게끔해라 
+        
         let id = document.getElementById("id").value
         contract.methods.getTiketInfo(id).call()
         .then(function(result){
-            console.log(result[0], result[1],result[2]);
+            console.log(result);
         // let jsonData = JSON.stringify(result);
         //     console.log(jsonData);
-            
         
-        document.getElementById("showCustomerInfo").innerHTML = 
-        "<div> 주소 : " + result[0] + "</div>"+
-        "<div> 이름 : " + result[1] + "</div>"+
-        "<div> 나이 : " + result[2] + "</div>";
+        let subStr = result[0].substr(0,3); 
+        console.log(subStr);
+
+        if(subStr === "0x0"){
+            document.getElementById("showCustomerInfo").innerHTML = "";
+        }else{
+        console.log("getTiketInfo---------------------");
+            document.getElementById("showCustomerInfo").innerHTML = 
+            "<div> 주소 : " + result[0] + "</div>"+
+            "<div> 이름 : " + result[1] + "</div>"+
+            "<div> 나이 : " + result[2] + "</div>";
+            btn_off();
+        }
         })
         // btn_off();
-        getTiketInfo()
+        // getTiketInfo()
     }
 
 
     function buyTiket() {
-  
+
     let id = document.getElementById("id").value
     let addr = document.getElementById("account").innerText
     let name = document.getElementById("nameInput").value
@@ -443,7 +456,9 @@
         // document.getElementById("showCustomerInfo").innerHTML = 
         // "<div> blockNumber : " + receipt.blockNumber + "</div>"+
         // "<div> hash : " + receipt.from + "</div>";
+   
         getTiketInfo()
+      
     });
    
     }
@@ -451,22 +466,37 @@
 
 
 //두번째 카드
+
+    // function getRemoveInfo1(){
+        
+    // }   
+
     function getTiketInfo1(){
-        btn_off1()
+     //값이 있을때만, 버튼이 활성화 되게끔해라 
         let id = document.getElementById("id1").value
         contract.methods.getTiketInfo(id).call()
+        
         .then(function(result){
-            console.log(result[0], result[1],result[2]);
+            console.log(result);
         // let jsonData = JSON.stringify(result);
         //     console.log(jsonData);
-            
-        
+         
+        let subStr = result[0].substr(0,3); 
+        console.log(subStr);
+
+        if(subStr === "0x0"){
+            document.getElementById("showCustomerInfo1").innerHTML = "";
+        }else{
+        // console.log("getTiketInfo1---------------------");
         document.getElementById("showCustomerInfo1").innerHTML = 
         "<div> 주소 : " + result[0] + "</div>"+
         "<div> 이름 : " + result[1] + "</div>"+
         "<div> 나이 : " + result[2] + "</div>";
+        btn_off1(); 
+         }
         })
-        getTiketInfo1()
+        // btn_off1();
+        // getRemoveInfo1()
     }
 
 
@@ -488,29 +518,37 @@
         // receipt can also be a new contract instance, when coming from a "contract.deploy({...}).send()"
         //getName()
         getTiketInfo1()
+        btn_off1();
     });
 
     }
 
 //세번째 카드
 function getTiketInfo2(){
-    btn_off2()
+
         let id = document.getElementById("id2").value
         contract.methods.getTiketInfo(id).call()
         .then(function(result){
             console.log(result[0], result[1],result[2]);
         // let jsonData = JSON.stringify(result);
         //     console.log(jsonData);
-            
+        let subStr = result[0].substr(0,3); 
+        console.log(subStr);
+
+        if(subStr === "0x0"){
+            document.getElementById("showCustomerInfo2").innerHTML = "";
+        }else{     
         
         document.getElementById("showCustomerInfo2").innerHTML = 
         "<div> 주소 : " + result[0] + "</div>"+
         "<div> 이름 : " + result[1] + "</div>"+
         "<div> 나이 : " + result[2] + "</div>";
+        btn_off2();
+    }
         })
-        // btn_off();
+        
        // btn_off2() //맨 앞에서 실행될때 , getTiketInfo를 체크하니까, buy함수도 id에 문자가 있는지 체크한 후, 활성화/비활성화해준다.
-    getTiketInfo2()
+
     }
 
 
@@ -535,6 +573,7 @@ function getTiketInfo2(){
         //getName()
         console.log(receipt);
         getTiketInfo2()
+        btn_off2();
     });
 
 
@@ -542,23 +581,28 @@ function getTiketInfo2(){
 
 //네번째 카드
 function getTiketInfo3(){
-    
-        btn_off3() //맨 앞에서 실행될때 , getTiketInfo를 체크하니까, buy함수도 id에 문자가 있는지 체크한 후, 활성화/비활성화해준다.
+
+
         let id = document.getElementById("id3").value
         contract.methods.getTiketInfo(id).call()
         .then(function(result){
             console.log(result[0], result[1],result[2]);
         // let jsonData = JSON.stringify(result);
         //     console.log(jsonData);
-            
+        let subStr = result[0].substr(0,3); 
+        console.log(subStr);
+
+        if(subStr === "0x0"){
+            document.getElementById("showCustomerInfo3").innerHTML = "";
+        }else{   
         
         document.getElementById("showCustomerInfo3").innerHTML = 
         "<div> 주소 : " + result[0] + "</div>"+
         "<div> 이름 : " + result[1] + "</div>"+
         "<div> 나이 : " + result[2] + "</div>";
+    }
         })
         // btn_off();
-        getTiketInfo3()
     }
     function buyTiket3() {
     let id = document.getElementById("id3").value
@@ -579,7 +623,7 @@ function getTiketInfo3(){
         //getName()
         console.log(receipt);
         getTiketInfo3();
-
+        btn_off3();
     });
     }
 
@@ -605,6 +649,8 @@ function getTiketInfo3(){
             let check = document.getElementById('showCustomerInfo')
             if(check !== ""){
             target.disabled = true;
+        }else{
+            target.disabled = false;
         }
             // btn = document.getElementById('btn');
             // btn.disabled = 'disabled';
@@ -613,9 +659,12 @@ function getTiketInfo3(){
         function btn_off1() {
             // let myBtn = document.getElementById('testBtn1').getAttribute('aria-disabled');
             let target = document.getElementById('testBtn1')
+            
             let check = document.getElementById('showCustomerInfo1')
             if(check !== ""){
             target.disabled = true;
+        }else{
+            target.disabled = false;
         }
             // btn = document.getElementById('btn');
             // btn.disabled = 'disabled';
@@ -636,6 +685,8 @@ function getTiketInfo3(){
             let check = document.getElementById('showCustomerInfo3')
             if(check !== ""){
             target.disabled = true;
+        }else{
+            target.disabled = false;
         }
             // btn = document.getElementById('btn');
             // btn.disabled = 'disabled';
